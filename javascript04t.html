@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fi-FI">
+    <head>
+        <title>TITLE</title>
+        <meta charset="utf-8"/>
+        <style>
+        </style>
+    </head>
+    <body>
+        <h1>Day 04</h1>
+        <script>
+// tee funktio, joka laskee alueen pinta-alan 
+
+function pinta_alan(pituus, leveys){
+    return pituus * leveys
+}
+
+// tee funktio, joka laskee annetulle säteelle
+// ympyrän pinta-alan. 
+function ympyrän_pinta_ala(säde){
+    return säde * säde * Math.PI
+}
+
+/*
+            // Tehtävä
+            // Työntekijän palkka on 60e tunnilta.
+            // palkka on 1.5 kertainen lauantaina ja 2 kertainen sunnuntaina
+            // kysy käyttäjältä mikä päivä on kyseessä:
+            // MA, TI, KE, TO, PE, LA tai SU
+            // ja ilmoita palkka
+*/
+/*
+let päivä = prompt("Palkka tunti saanti millä päivällä").toLocaleUpperCase();
+let palkka = 60;
+switch(päivä){
+    case "SU":
+        palkka *= 2;
+        break;
+    case "LA": 
+        palkka *= 1.5;
+        break;
+    case "MA": 
+    case "TI": 
+    case "KE": 
+    case "TO": 
+    case "PE":
+        break;
+        default:
+            console.log("Invalid day input");
+            break;
+
+}
+if (päivä === "SU" || päivä === "LA" || (päivä >= "MA" && päivä <= "PE")) {
+    console.log(`Palkka ${päivä} on ${palkka} euroa tunnilta.`);
+}
+*/
+
+
+
+</script>
+    </body>
+</html>

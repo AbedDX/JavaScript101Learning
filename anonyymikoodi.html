@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="fi-FI">
+    <head>
+        <title>TITLE</title>
+        <meta charset="utf-8"/>
+        <style>
+        </style>
+    </head>
+    <body>
+        <h1>Anonyymi</h1>
+        <script>
+            // Jokaiselle muuttujalle voidaan antaa arvoksi funktio.
+            // Funktio voi olla nimeä käyttävä tai anonyymi.
+            // anonyymi funktio voi olla: 
+            // anonyymi funktio tai nuolifunktio.
+
+            // luodaan muuttuja A, joka käyttää anonyymia funktiota.
+            // kyseinen funktio ottaa kaksi argumenttia: arg1, arg2
+            // funktiossa argumentit lasketaan yhteen.
+            // kutsu muuttujaa ja tulosta lasku.
+/*
+            let muuttujaA = function (arg1, arg2) {
+                console.log(arg1+arg2);
+            }
+            // kutsun muuttujaa, jolloin se käyttää sille arvoksi 
+            // annettua anonyymiä funktiota.
+            muuttujaA(111,222); // 333
+
+            // sama asia voidaan toteuttaa nuolifunktiolla.
+            // lambda funktio on tästä käytetty nimitys.
+
+            let muuttujaB = (arg1, arg2) => {
+                console.log(arg1+arg2);
+            }
+            muuttujaB(111,222); // 333
+
+            // anonyymillä funktiolla ei tarvitse olla argumentteja.
+            // seuraavat funktio käyttää ulkopuolista muuttujaa outA.
+            // mutta se ei käytä argumentteja.
+
+            let outA = 123;
+
+            let muuttujaC = function() {
+                console.log(outA); // 123
+            }
+            muuttujaC();
+
+            let muuttujaD = () => {
+                console.log(outA); // 123
+            }
+            muuttujaD();
+
+            // Nuolifunktioilla on vielä pari erikoistapausta
+            // 1) jos funktiossa on vain yksi käsky, voidaan
+            // { } merkit jättää pois
+            let muuttujaE = () => console.log(outA); // 123
+            muuttujaE();
+            // 2) jos funktio palauttaa jotain, se ei tarvitse
+            // return sanaa, jos käskyjä on yksi.
+            let muuttujaF = (x) => x**2;
+            console.log(muuttujaF(10)); // 100
+            // 3) jos funktiolla on yksi argumentti, ei tarvita ()
+            // merkkejä
+            let muuttujaG = x => x**2;
+            console.log(muuttujaG(10)); // 100
+            // 4) jos funktio palauttaa jotain
+            let muuttujaH = x => { x = x**2; return x += 10; }
+            console.log(muuttujaH(10)); // 110
+            
+            let muuttujaI = (x,y) => x**y;
+            console.log(muuttujaI(10,2)); // 100
+
+            // callback funktio perustuu ideaan, että muuttuja
+            // voi saada arvoksi funktion.
+            // Tässä luodaan funktio valinta, jolla on 3 argumenttia.
+            // choice määrää näytetäänkö funktio 1 vai 2.
+            function valinta (func1, func2, choice) {
+                // true = func1, false = func2
+                (choice) ? func1() : func2();
+            }
+            function OIKEA() { console.log("OIKEIN"); }
+            function VÄÄRÄ() { console.log("VÄÄRIN"); }
+
+            valinta(OIKEA, VÄÄRÄ, true);
+            valinta(OIKEA, VÄÄRÄ, false);
+
+            let myObjekti = undefined
+            myObjekti = {
+                name : "hey",
+                surname : "yeh",
+                fullname () {
+                    console.log(`${this.name} ${this.surname}`);
+                }
+            }
+            myObjekti.fullname();
+/*
+            //autotehda esimerkki tehtävä
+            let moottori1 = {
+                voima: 111
+            }
+
+            let moottori2 = {
+                voima: 222,
+                turbo() { console.log("turbo päällä!"); }
+            }
+
+            let auto = {
+                moottori: moottori1,
+                omistaja: "Janne",
+                väri: "harmaa"
+            }
+            console.log(auto.omistaja); // Janne
+            console.log(auto.moottori); // { voima: 111 }
+            console.log(auto.moottori.voima); // 111
+//            auto.moottori = null;
+            auto.moottori = moottori2;
+            console.log(auto);
+//            auto.moottori = moottori2;
+            moottori1.voima = 9999;
+            auto.moottori.turbo();
+            console.log(moottori1);
+            console.log(moottori2);
+            console.log(auto); 
+*/
+// Tee autotehdas, joka käyttää
+            // Autotehdas nimistä funktiota luodakseen autoja.
+            // autolla on nimi, väri ja moottori
+            // moottoreita on kolme:
+            // moottoriA = voima 100
+            // moottoriB = voima 150 ja turbo()
+            // moottoriC = voima 200 ja nitro()
+            // Luo 4 autoa ja vaihda yhden moottori
+            // 1) Rakennetaan Autotehdas
+
+            function Moottoritehdas(moottori = "A") {
+                switch (moottori) {
+                    case "B":
+                        this.voima = 150;
+                        this.turbo = function() { console.log("TURBO!"); }
+                        break;
+                    case "C":
+                        this.voima = 200;
+                        this.nitro = function() { console.log("NITRO!"); }
+                        break;
+                    default:
+                        this.voima = 100;
+                        break;
+
+                }
+            }
+
+            function Autotehdas(nimi, väri, moottori = "A") {
+                this.nimi = nimi;
+                this.väri = väri;
+                this.moottori = new Moottoritehdas(moottori);
+            }
+
+            // 2) Rakenna 4 autoa
+            autolista = [];
+/*
+            let auto1 = new Autotehdas("auto1","punainen");
+            let auto2 = new Autotehdas("auto2","keltainen", "B");
+            let auto3 = new Autotehdas("auto3","vihreä", "C");
+            let auto4 = new Autotehdas("auto4","punainen");
+
+            autolista.push(auto1,auto2,auto3,auto4);
+*/
+            autolista.push(new Autotehdas("auto1","punainen"));
+            autolista.push(new Autotehdas("auto2","keltainen", "B"));
+            autolista.push(new Autotehdas("auto3","vihreä", "C"));
+            autolista.push(new Autotehdas("auto4","punainen"));
+
+            for (let auto of autolista) {
+                console.log(auto);
+            }
+
+            // 3) Vaihda yhden auton moottori
+            // auto1.moottori = new Moottoritehdas("C");
+            autolista[0].moottori = new Moottoritehdas("C");
+
+            console.log("--------");
+
+            // 4) Tulosta kaikki autot ja aja nitrolla jos on...
+            for (let auto of autolista) {
+                console.log(auto);
+                if ("nitro" in auto.moottori) { auto.moottori.nitro(); }
+            }
+
+            console.log("--------");
+/*            
+            ("nitro" in auto1.moottori) ? auto1.moottori.nitro() : console.log("None!");
+            ("nitro" in auto2.moottori) ? auto2.moottori.nitro() : console.log("None!");
+            ("nitro" in auto3.moottori) ? auto3.moottori.nitro() : console.log("None!");
+            ("nitro" in auto4.moottori) ? auto4.moottori.nitro() : console.log("None!");
+            if (auto1.moottori.nitro)  { console.log("Nitromenoa!") };
+            if (auto2.moottori.nitro)  { console.log("Nitromenoa!") };
+            if (auto3.moottori.nitro)  { console.log("Nitromenoa!") };
+            if (auto4.moottori.nitro)  { console.log("Nitromenoa!") };
+*/
+            for (let auto of autolista) {
+                ("nitro" in auto.moottori) ? auto.moottori.nitro() : console.log("None!");
+                if (auto.moottori.nitro)  { console.log("Nitromenoa!") };
+            } 
+
+        
+
+        </script>
+    </body>
+</html> 
+

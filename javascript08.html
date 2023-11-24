@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="fi-FI">
+    <head>
+        <title>TITLE</title>
+        <meta charset="utf-8"/>
+        <style>
+        </style>
+    </head>
+    <body>
+        <h1>Day 08</h1>
+        <script>
+            // olioita lisää
+
+            // Olioita voi luoda paljon käyttämällä funktiota
+            // Tämä helpottaa olioiden luontia koodissa oleellisesti
+            // FUNKTION NIMI ALKAA TÄLLÖIN AINA ISOLLA KIRJAIMELLA!
+            // eli function Nimi() ....
+
+            // konstructorit keyword constructor(<argumentit>) ovat uusi tapa toimia
+            // vaativat olion luontia new keywordillä!
+            // Funktion nimi alkaa isolla kirjaimella
+            // käytännössä konstruktoria käytetään vain class eli luokkien yhteydessä
+            // KÄYTÄ TÄTÄ LUODESSASI OLIOITA!
+
+            function Henkilö(etunimi, sukunimi) {
+                this.etunimi = etunimi;
+                this.sukunimi = sukunimi;
+                this.kokonimi = function() {
+                    console.log(this.etunimi + " " + this.sukunimi);
+                }
+            }
+
+            let myOlioA = null;
+            // olio luodaan käyttäen new Funktionnimi() komentoa.
+            myOlioA = new Henkilö("Aku","Ankka");            
+            myOlioA.kokonimi();
+
+            let myOlioB = new Henkilö("Hannu", "Hanhi");
+            myOlioB.kokonimi();
+
+            // Tehtävä
+            // Rakenna funktio Puhnumero, joka ottaa avainarvoparit:
+            // nimi ja numero
+            // Luo kaksi oliota ja tulosta niiden sisältö
+            function Puhnumero(nimi, numero) {
+                this.nimi = nimi;
+                this.numero = numero;
+            }
+            let janne = new Puhnumero("janne", 447220806);
+            let ilona = new Puhnumero("ilona", 1234567890);
+            console.log(janne);
+            console.log(ilona);
+
+            // Seuraavaksi <muuttuja>? avainsana
+            // Lopettaa tarkastuksen ja palauttaa undefined, jos ei ole olemassa
+            
+            // olio on olemassa mutta avain ei ole
+            console.log(janne.ikä); // undefined
+            // oliota ei ole olemassa, aiheuttaa virheilmoituksen
+            //console.log(perttu.ikä); // VIRHE!
+            //console.log(perttu); // VIRHE!
+
+            // käytetään ? tässä tilenteessa
+            let perttu = null;
+            console.log(perttu?.ikä); // undefined
+            // ? käy myös funktioiden kanssa
+            console.log(perttu?.testi()); // undefined
+
+            // ?? voidaan käyttää luomaan default arvo
+            // jos ?? vasemmanpuoleinen arvo on null niin
+            // arvoksi otetaan oikeanpuoleinen arvo ("Anonyymi")
+//            let result = prompt("valitse cancel and saat null");
+//            let nimi = result ?? "Anonyymi"; 
+//            console.log(nimi);
+
+            // get ja set eli suomeksi getteri ja setteri
+            // get/set ovat tapa tehdä tiedon jalostamista haettaessa
+            // oliolta (eli haetaan kuin arvo mutta siihen kuuluu 
+            // koodausta)
+
+            janne = null;
+
+            // Tässä luodaan nimi get/set rakenne
+            // Siihen kuuluu kaksi funktiota, joita
+            // käytetään koodissa kuin ne olisivat avain-arvo pareja
+            janne = {
+                etu: "Janne",
+                suku: "Kemppi",
+                get nimi() { return this.etu + " " + this.suku; },
+                set nimi(arg) { 
+                    [this.etu, this.suku] = arg.split(" ");
+                }                
+            };
+            console.log(janne.nimi);
+            janne.nimi = "Hannu Hanhi";
+            console.log(janne.nimi);
+
+            function Henkilötieto(etu, suku) {
+                this.etu = etu;
+                this.suku = suku;
+                // nimen haku funktiona
+                this.kokonimi = () => { return `${etu} ${suku}` }
+                // get ja set vaativat Object.assign
+                // jos olemme funktion sisällä
+                Object.assign(this, {
+                    get nimi() { return `${etu} ${suku}` },
+                    set nimi(arg) { 
+                        [this.etu, this.suku] = arg.split(" ");
+                    }
+                });
+            }
+
+            janne = null;
+            janne = new Henkilötieto("Janne", "Kemppi");
+            console.log(janne.kokonimi());
+            console.log(janne.nimi);
+            janne.nimi = "Hannu Hanhi";
+            console.log(janne.nimi);
+
+//            let stringi = "Hyvää päivää kaikille teille";
+//            let tulos = stringi.split(" ");
+//            console.log(tulos);
+
+            // Olio voi muodostua olioista!
+            janne = null;
+            janne = {
+                nimi: "Janne",
+                pari: null
+            }
+            let sari = {
+                nimi: "Sari",
+                pari: janne,
+                vaimo() { console.log(this.pari.nimi); }
+            }
+            console.log(sari); // sari olio
+            console.log(sari.nimi); // Sari
+            console.log(sari.pari); // janne olio
+            console.log(sari.pari.nimi); // Janne
+            sari.vaimo();
+
+            // Tehtävä
+            // rakenna funktio Person, jolla tehdään olioita
+            // jolla on avain-arvoparit:
+            // etunimi on string
+            // parisuhde on olio tai null
+            // isä on olio tai null
+            // äiti on olio tai null
+
+            // Rakenna seuraavaksi oma perhe olioina käyttäen
+            // Person funktiota
+
+            // Rakenna seuraavaksi funktioita!
+            // hello() "Minä olen X"
+
+            // Näissä viitataan isä ja äiti avaimien takana
+            // oleviin olioihin
+            // pari() "Parini on A"
+            // vanhemmat() "isäni on Y ja äitini on Z"
+
+            function Person(etunimi) {
+                this.etunimi = etunimi;
+                this.parisuhde = null;
+                this.isä = null;
+                this.äiti = null;
+                this.hello = () => { console.log(`Minä olen ${this.etunimi}`) };
+                this.pari = () => { console.log(`Parini on ${this.parisuhde.etunimi}`); };
+                this.vanhemmat = () => { console.log(`Isäni on ${this.isä.etunimi} ja äitini on ${this.äiti.etunimi}`); };
+            }
+
+            janne = new Person("Janne");
+            sari = new Person("Sari");
+            ritva = new Person("Ritva");
+            terho = new Person("Terho");
+            janne.parisuhde = sari;
+            janne.isä = terho;
+            janne.äiti = ritva;
+            console.log(janne, sari);
+            console.log(janne.parisuhde.etunimi);
+            janne.hello();
+            janne.pari();
+            janne.vanhemmat();
+
+            // Tehtävä
+            // Tee kortti olioita yhden korttipakan edestä.
+            // Voit lisätä kortit arrayhin seuraavasti:
+            // let korttipakka = [];
+            // korttipakka.push(<kortti>); // lisää olion
+            // kirjoita korttipakan sisältö konsolille:
+            // console.log(korttipakka)
+
+            function Kortti(arvo,maa) {
+                this.arvo = arvo;
+                this.maa = maa;
+                this.korttitieto = () => {
+                    let dummymaa = "";
+                    switch(this.maa) {
+                        case 0:
+                            dummymaa = "risti";
+                        break;
+                        case 1:
+                            dummymaa = "ruutu";
+                        break;
+                        case 2:
+                            dummymaa = "pata";
+                        break;
+                        case 3:
+                            dummymaa = "hertta";
+                        break;
+                    }
+                    let dummyarvo = String(this.arvo);
+                    if (dummyarvo === "1") { dummyarvo="A"; }
+                    if (dummyarvo === "11") { dummyarvo="J"; }
+                    if (dummyarvo === "12") { dummyarvo="Q"; }
+                    if (dummyarvo === "13") { dummyarvo="K"; }
+                    return `${dummymaa} ${dummyarvo}`;
+                };
+            }
+
+            let korttipakka = [];
+
+            for (let maa=0; maa < 4; maa++) {
+                for (let arvo=1; arvo < 14; arvo++) {
+                    let kortti = new Kortti(arvo,maa);
+                    korttipakka.push(kortti);
+                }
+            }
+
+            console.log(korttipakka);
+            console.log(korttipakka[16]);
+            console.log(korttipakka[16].korttitieto());
+
+</script>
+    </body>
+</html>

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="fi-FI">
+    <head>
+        <title>TITLE</title>
+        <meta charset="utf-8"/>
+        <style>
+        </style>
+    </head>
+    <body>
+        <h1>Day 03</h1>
+        <script>
+/*
+Tehtävä 1:
+Ohjelma kysyy paikkakuntaa
+Jos paikkakunta on muu kuin Kuopio, 
+kysytään monta kappaletta tilataan
+Ohjelma ilmoittaa tilauksen hinnan. Yksi kappale maksaa 10.90
+*/
+
+/*
+//let kaupunki = prompt("Millä paikkakunnalla olet?");
+//let result = kaupunki.toLocaleLowerCase();
+// console.log(result);
+
+//if ( kaupunki.localeCompare("Kuopio") !== 0 ) {
+    if ( !kaupunki.toLocaleLowerCase().includes("uopi") ) {
+    let kappalemäärä = Number(prompt("Monta kappaletta annoksia?"));
+    console.log(`Hinta on yhteensä ${kappalemäärä*10.90} euroa.`)
+}
+*/
+
+/*
+Tehtävä 2:
+Ohjelma kysyy työtuntien lukumäärän ja tehdyn työpäivän.
+Jos työpäivä on LA on palkkakerroin 1.5 ja jos SU on palkkakerroin 2.
+Palkka on 30,00e.
+*/
+/*
+let työtunnit = Number(prompt("Anna työtuntien lukumäärä"));
+työtunnit *= 30;
+let työpäivä = prompt("Anna työpäivä\nMA TI KE TO PE LA tai SU");
+if ( työpäivä.localeCompare("SU") === 0 ) {
+    työtunnit *=2;
+}
+if ( työpäivä.localeCompare("LA") === 0 ) {
+    työtunnit *=1.5;
+}
+console.log(`Palkkasi on ${työtunnit} euroa.`);
+*/
+
+/*
+Tehtävä 3:
+Ohjelma kysyy onko tänään sateista (kyllä/ei) sekä lämpötilan.
+Keksi ja ilmoita sopivat vaatteet kun lämpötila on alle 0, 1-10, 11-20 ja 20+. Ota huomioon sade.
+*/
+
+/*
+let sadepäivä = confirm("Sataako tänään?");
+let lämpötila = Number(prompt("Mikä on lämpötila"));
+
+if (lämpötila <= 0) {
+    console.log("villapomppa päälle!");
+} else if (lämpötila >= 1 && lämpötila <= 10) {
+    if (sadepäivä) {
+        console.log("Muista sadetakki!");
+    } else {
+        console.log("Paksu takki mukaan!");
+    }
+} else if (lämpötila >= 11 && lämpötila <= 20) {
+    console.log("Takki päälle!");
+    if (sadepäivä) {
+        console.log("Muista sateenvarjo!");
+    }   
+} else {
+    console.log("aurinkolasit mukaan!");
+    if (sadepäivä) {
+        console.log("Ei sade haittaa!");
+    }
+}
+*/
+
+/*
+Tehtävä 4:
+Ohjelma kysy numeroa. Oletetaan, että tulokset on välillä 1-9999.
+Tämän jälkeen ohjelma kertoo onko kyseessä:
+Yhdet, kymmenet, sadat vai tuhannet.
+*/
+/*
+let numero = Number(prompt("Anna luku"));
+
+if (numero < 10) {
+    console.log("Yhdet");
+} else if (numero >= 10 && numero < 100 ) {
+    console.log("Kymmenet");
+} else if (numero >= 100 && numero < 1000 ) {
+    console.log("Sadat");
+} else {
+    console.log("Tuhannet");
+}
+
+// Tätäkin voi kikkailla...
+if (numero.toString().length < 2) {
+    console.log("Yhdet");
+} else if (numero.toString().length < 3 ) {
+    console.log("Kymmenet");
+} else if (numero.toString().length < 4 ) {
+    console.log("Sadat");
+} else {
+    console.log("Tuhannet");
+}
+*/
+
+        // looppeja
+        // while
+        // do while
+        // for looppi
+        // for of (käy läpi arrayn ja iteroitavat oliot)
+        // for in (käy läpi objektin propertyt)
+
+        let iter;
+
+        // while
+        // while on perustapa tehdä looppi.
+        // käytä tätä, jos et tiedä mikä on paras tapa.
+        iter=1;
+        while ( iter < 5 ) {
+            console.log(iter);
+            iter++;
+        }
+
+        // do while
+        // ajaa loopin aina vähintään kerran
+        iter=1;
+        do {
+            console.log(iter);
+            iter++;
+        } while(iter < 5);
+
+        // ikilooppia ajetaan jatkuvasti
+        // käytä näitä ainoastaan kun on pakko
+        // ÄLÄ AJA TÄTÄ KOODIA KOTONA!
+        /*
+        while(true) {
+            console.log(ikilooppi);
+        }        
+        */
+/*
+        let myboolean = true;
+        while(myboolean) {
+            // tee jotain...
+ 
+            // poistu antamalla myboolean muuttujan arvoksi false.
+            // Tällöin loopista poistutaan loopin lopussa
+        }
+
+
+        while(true) {
+            // tee jotain...
+
+            // poistu break komennolla
+            // Tällöin loopista poistutaan heti
+        }
+*/
+
+/*
+        // for looppi
+        // aja jokin koodi alusta loppuun
+        // tyypillinen arraylla
+        let arrayA = [22,66,44,11,77];
+        for (let iter=0; iter < arrayA.length; iter++) {
+            console.log(arrayA[iter]);
+        }
+/*
+        // harvinainen, yleensä ikiloop tehdään while komennolla
+        for (;;) {
+            // tee jotain
+
+            // poistu aina break komennolla.
+        }
+*/
+
+/*
+    // break ja continue
+    // break lopettaa loopin läpikäynnin ja hyppää loopista pois heti
+        for (let iter = 1; iter < 5; iter++) {
+            if (iter === 3 ) { 
+                console.log("break tapahtui");
+                break;
+            }
+            console.log(iter);
+        }
+
+    // continue lopettaa loopin läpikäynnin ja palaa alkuun seuraavaan arvoon
+        for (let iter = 1; iter < 5; iter++) {
+            if (iter === 3 ) { 
+                console.log("continue tapahtui");
+                continue; 
+            }
+            console.log(iter);
+        }
+
+        let arraypotilas = [
+            { ikä: 15, elää: true},
+            { ikä: 18, elää: false},
+            { ikä: 19, elää: true}
+        ];
+        for (let iter=0; iter < arraypotilas.length; iter++) {
+            // poista kuolleet potilaat
+            if (!arraypotilas[iter].elää) {
+                continue;
+            }
+            console.log(arraypotilas[iter]);
+        }
+*/
+
+        console.log("programming tasks");
+            /*
+            // Programming task 1:
+            This program should print out the message "hi" and then ask 
+            "Shall we continue?" until the user inputs "no". Then the 
+            program should print out "okay then" and finish.
+            */
+/*
+           let continueloop = "";
+           do {
+                console.log("Hi!");
+                continueloop = prompt("Shall we continue?");
+           } while ( continueloop.localeCompare("no") );
+           console.log("okay then");
+
+
+           do {
+                console.log("Hi!");
+           } while ( prompt("Shall we continue?").localeCompare("no") );
+           console.log("okay then");
+*/          
+           /*
+            // Programming task 2:
+            Please write a program which asks the user for integer numbers.
+
+            If the number is below zero, the program should print out the 
+            message "Invalid number".
+
+            If the number is above zero, the program should print out the 
+            square root of the number using the Math.sqrt function.
+
+            In either case, the program should then ask for another number.
+
+            If the user inputs the number zero, the program should stop 
+            asking for numbers and exit the loop.
+            */
+/*
+            let value;
+            console.log(value); // undefined
+            do {
+                value = Number(prompt("Give me a number???"));
+                if (value < 0) {
+                    console.log("Invalid number!");
+                } else if (value > 0) {
+                    console.log("Result is " + Math.sqrt(value));
+                }
+            } while (value !== 0);
+
+//            console.log(Number(null)); // antaa ulos 0
+*/
+
+            /*
+            // Programming task 3:
+            This program should print out a countdown. The code is as follows:
+            Sample output
+            Countdown!
+            5
+            4
+            3
+            2
+            1
+            Now!
+            */
+/*
+            console.log("Countdown!");
+            for (let iter = 5; iter > 0; iter--) {
+                console.log(iter);
+            }
+            console.log("Now!");
+*/
+            /*
+            // Programming task 4:
+            Please write a program which asks the user for a password. The 
+            program should then ask the user to type in the password again. 
+            If the user types in something else than the first password, 
+            the program should keep on asking until the user types the first 
+            password again correctly.
+            */
+/*
+            let password1 = prompt("Give me a password?");
+            let password2 = "";
+            do {
+                password2 = prompt("Get the password again!");                        
+//            } while (password1.localeCompare(password2) !== 0);
+            } while (password1 !== password2);
+*/
+
+//            let password1 = prompt("Give me a password?");
+//            do {
+//            } while (prompt("Get the password again!").localeCompare(password1) !== 0);
+
+/*
+            let password1 = prompt("Give me a password?");
+            iter=3;
+            while(true) {
+                let password2 = prompt("Get the password again!");
+                iter--;                        
+                if (iter > 0 ) {
+                    if (password1.localeCompare(password2) === 0) {
+                        break;
+                    } else {
+                        console.log("Wrong password!");
+                    }   
+                } else {
+                    console.log(`You shall not pass!`);
+                }
+            }
+*/
+
+            /*
+            // Programming task 5:
+            Please write a program which keeps asking the user for a PIN 
+            code until they type in the correct one, which is 4321. The 
+            program should then print out the number of times the user 
+            tried different codes.
+            */
+/*            
+            let counter = 0;
+            do {
+                counter++;
+            } while ( Number(prompt("Give me PIN code?")) !== 4321 );
+            console.log("You made " + counter + " guesses!");
+            
+
+            counter = 0;
+            do {
+                counter++;
+            } while ( prompt("Give me PIN code?").localeCompare(String(4321)) !== 0 );
+            console.log("You made " + counter + " guesses!");
+*/
+
+        </script>
+    </body>
+</html>

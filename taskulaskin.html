@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="fi-FI">
+    <head>
+        <title>TITLE</title>
+        <meta charset="utf-8"/>
+        <style>
+        </style>
+    </head>
+    <body>
+        <h1>Taskulaskin</h1>
+        <p id="näyttöB"></p>
+        <input id="näyttö" type="text" readonly/>
+        <br>
+        <button id="yksi">1</button>
+        <button id="kaksi">2</button>
+        <button id="kolme">3</button>
+        <br>
+        <button id="neljä">4</button>
+        <button id="viisi">5</button>
+        <button id="kuusi">6</button>
+        <br>
+        <button id="seitsemän">7</button>
+        <button id="kahdeksan">8</button>
+        <button id="yhdeksän">9</button>
+        <br>
+        <button id="nolla">0</button>
+        <br>
+        <button id="summa">+</button>
+        <button id="erotus">-</button>
+        <button id="kerto">*</button>
+        <button id="jako">/</button>
+        <button id="power">Pow</button>
+        <br>
+        <button id="tulos">=</button>
+        <button id="clear">C</button>
+        <button id="unary">-/+</button>
+        <button id="inverse">1/X</button>
+        <button id="dot">.</button>
+
+        <script>
+            // TASKULASKIN
+/*
+            // Miten suunnitellaan?
+
+// YLÄTASON SUUNNITTELU
+
+// 1. Visio eli mitä ollaan tekemässä? (suomeksi johtotähti)
+// Tämä on AINA ensimmäinen kysymys!
+// Mitä yleensä halutaan saada aikaan...
+
+Taskulaskin
+10 näppäintä kymmenelle numerolle
++ - * / toiminnat
+= merkillä lasketaan tulos
+
+3 + 5 = 8
+
+// 2. Suunnittelu yleistasolla
+// Lähestymistapoja on yleensä kaksi:
+// a) käyttöliittymä eli mitä käyttäjä tekee?
+// b) data eli mitä halutaan kerätä/jalostaa/tallettaa?
+// Tavoite on aina että tiedetään mitä tehdään missäkin vaiheessa
+
+käyttöliittymä on nelilaskin
+Kaikki toiminnot ovat näppäimiä
+Näyttö on input type="text" readonly
+
+Pelissä on muistialueita:
+muistiA, muistiB, jne... 
+muistialueen default arvo on aina 0.
+toimintaA, toimintaB jne...
+
+Kun painetaan numeroa se tulee näyttöön.
+
+Kun painetaan toimintoa + - * / numero talletetaan muistiA muuttujaan.
+Samalla toiminto talletetaan toimintaA muuttujaan.
+
+Kun painetaan toimintoa = numero tallennetaan muistiB muuttujaan.
+Tämän jälkeen toimintaA mukaan switch-case, jossa muistiA ja muistiB arvoilla tehdään aritmetiikka.
+
+
+            // 3. Käyttäjän toiminta ja yleinen "use case"
+            // use case sanoo mitä käyttäjä tekee
+            // Tällöin nähdään ohjelman toiminnnan askeleet
+
+<numerosyöttö>
+<toimintanäppäin painetaan>
+<numerosyöttö>
+<toimintanäppäin = painetaan >
+(näytä tulos)
+*/
+
+            // Kirjastot ja Modulit
+
+            // Vakiot
+
+            // Muuttujat
+            let muistiA = 0;
+            let muistiB = 0;
+            let toimintaA = 0;
+           
+            // Konteksti näytön ja koodin välillä
+            const näyttöB = document.getElementById("näyttöB");
+            const näyttö = document.getElementById("näyttö");
+
+            const yksi = document.getElementById("yksi");
+            const kaksi = document.getElementById("kaksi");
+            const kolme = document.getElementById("kolme");
+            const neljä = document.getElementById("neljä");
+            const viisi = document.getElementById("viisi");
+            const kuusi = document.getElementById("kuusi");
+            const seitsemän = document.getElementById("seitsemän");
+            const kahdeksan = document.getElementById("kahdeksan");
+            const yhdeksän = document.getElementById("yhdeksän");
+            const nolla = document.getElementById("nolla");
+            const summa = document.getElementById("summa");
+            const erotus = document.getElementById("erotus");
+            const kerto = document.getElementById("kerto");
+            const jako = document.getElementById("jako");
+            const tulos = document.getElementById("tulos");
+            const clear = document.getElementById("clear");
+            const unary = document.getElementById("unary");
+            const inverse = document.getElementById("inverse");
+            const dot = document.getElementById("dot");
+            const power = document.getElementById("power");
+
+            // Luokat ja Oliot
+
+            // Funktiot
+
+            // Event handlerien asetukset
+            yksi.addEventListener("click", () => {
+                if (näyttö.value === "0") {
+                    näyttö.value = "1";
+                } else {
+                    näyttö.value += "1";
+                }
+            });
+
+            kaksi.addEventListener("click", () => {
+                if (näyttö.value === "0") {
+                    näyttö.value = "2";
+                } else {
+                    näyttö.value += "2";
+                }
+            });
+            kolme.addEventListener("click", () => {
+                if (näyttö.value === "0") {
+                    näyttö.value = "3";
+                } else {
+                    näyttö.value += "3";
+                }
+            });
+            neljä.addEventListener("click", () => {
+                if (näyttö.value === "0") {
+                    näyttö.value = "4";
+                } else {
+                    näyttö.value += "4";
+                }
+            });
+            viisi.addEventListener("click", () => {
+                if (näyttö.value === "0") {
+                    näyttö.value = "5";
+                } else {
+                    näyttö.value += "5";
+                }
+            });
+            kuusi.addEventListener("click", () => {
+                if (näyttö.value === "0") {
+                    näyttö.value = "6";
+                } else {
+                    näyttö.value += "6";
+                }
+            });
+            seitsemän.addEventListener("click", () => {
+                if (näyttö.value === "0") {
+                    näyttö.value = "7";
+                } else {
+                    näyttö.value += "7";
+                }
+            });
+            kahdeksan.addEventListener("click", () => {
+                if (näyttö.value === "0") {
+                    näyttö.value = "8";
+                } else {
+                    näyttö.value += "8";
+                }
+            });
+            yhdeksän.addEventListener("click", () => {
+                if (näyttö.value === "0") {
+                    näyttö.value = "9";
+                } else {
+                    näyttö.value += "9";
+                }
+            });
+            nolla.addEventListener("click", () => {
+                if (näyttö.value !== "0") {
+                    näyttö.value += 0;
+                }                
+            });
+            summa.addEventListener("click", () => {
+                muistiA = Number(näyttö.value);
+                toimintaA = 1; 
+                console.log(muistiA);
+                console.log(toimintaA);
+                näyttö.value = "0";
+                näyttöB.innerText = `${muistiA} + `;
+            });
+            erotus.addEventListener("click", () => {
+                muistiA = Number(näyttö.value);
+                toimintaA = 2; 
+                console.log(muistiA);
+                console.log(toimintaA);
+                näyttö.value = "0";
+                näyttöB.innerText = `${muistiA} - `;
+            });
+            kerto.addEventListener("click", () => {
+                muistiA = Number(näyttö.value);
+                toimintaA = 3; 
+                console.log(muistiA);
+                console.log(toimintaA);
+                näyttö.value = "0";
+                näyttöB.innerText = `${muistiA} * `;
+            });            
+            jako.addEventListener("click", () => {
+                muistiA = Number(näyttö.value);
+                toimintaA = 4; 
+                console.log(muistiA);
+                console.log(toimintaA);
+                näyttö.value = "0";
+                näyttöB.innerText = `${muistiA} \ `;
+            });
+            power.addEventListener("click", () => {
+                muistiA = Number(näyttö.value);
+                toimintaA = 5; 
+                console.log(muistiA);
+                console.log(toimintaA);
+                näyttö.value = "0";
+                näyttöB.innerText = `${muistiA} ** `;
+            });
+            tulos.addEventListener("click", () => {
+                muistiB = Number(näyttö.value);
+                console.log(muistiB);
+                näyttöB.innerText += ` ${muistiB} = `;
+                switch(toimintaA) {
+                    case 1: // summa
+                        näyttö.value = muistiA + muistiB;
+                        break;
+                    case 2: // erotus
+                        näyttö.value = muistiA - muistiB;
+                        break;
+                    case 3: // kerto
+                        näyttö.value = muistiA * muistiB;
+                        break;
+                    case 4: // jako
+                        näyttö.value = muistiA / muistiB;
+                        break;
+                    case 5: // potenssi
+                        näyttö.value = muistiA ** muistiB;
+                        break;
+                }
+
+            });
+            clear.addEventListener("click", () => {
+                näyttö.value = 0;
+                näyttöB.innerText = "";
+                muistiA = 0;
+                muistiB = 0;
+                toimintaA = 0;
+            });
+            unary.addEventListener("click", () => {
+                näyttö.value = -Number(näyttö.value);               
+            });
+            inverse.addEventListener("click", () => {
+                näyttö.value = 1/Number(näyttö.value);               
+            });
+            dot.addEventListener("click", () => {
+                if (!näyttö.value.includes(".")) {
+                    näyttö.value += ".";
+                }
+            });
+
+            // Datan haku
+
+            // (koodi)
+            näyttö.value = "0";
+            näyttöB.innerText = "";
+
+            // Tehtävä: Lisätkää uusi nappi "pow"
+            // A potenssiin B
+        </script>
+    </body>
+</html>

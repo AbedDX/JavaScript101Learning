@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="fi-FI">
+    <head>
+        <title>TITLE</title>
+        <meta charset="utf-8"/>
+        <style>
+        </style>
+    </head>
+    <body>
+        <h1>Day 11</h1>
+        <script>
+            let jukola = ["Juhani","Tuomas", "Aapo", "Simeoni", "Timo", "Lauri", "Eero"];
+            let numerolista = [111,222,333,444,555,666,777,888,999];
+
+            // forEach
+            // käydään läpi kaikki arrayn elementit.
+            // käytetään elementtiä arvona annetulle funktiolle
+            // Eli:
+            // "tee kaikille elementeille tämä funktio"
+            // .forEach((arg1,arg2,arg3) => {<koodi tähän})
+
+            jukola.forEach((value,index,array) => {
+                console.log(`${index} saa arvon ${value} arrayssa ${array}`);
+            });
+/*
+            // Tässä vaihtoehtoisia tapoja
+            let index = 0;
+            for (let value of jukola) {
+                console.log(`${index} saa arvon ${value} arrayssa ${jukola}`);
+                index++;
+            }
+
+            for (let index in jukola) {
+                console.log(`${index} saa arvon ${jukola[index]} arrayssa ${jukola}`);
+            }
+
+            for (let value of jukola) {
+                console.log(`${jukola.indexOf(value)} saa arvon ${value} arrayssa ${jukola}`);
+            }
+*/
+
+            // .find() ja .findIndex()
+            // käydään array läpi ja etsitään yksi osuma,
+            // joka täyttää ehdon
+            // jos ei löydy, palautetaan undefined
+            let result = jukola.find((value,index,obj) =>{
+                return value === "Tuomas";
+            });
+            console.log(result); // Tuomas
+
+            // sama voidaan tehdä myös näin:
+            result = "";
+            for (let value of jukola) {
+                if (value === "Tuomas") {
+                    result = value;
+                    break;
+                }
+            }
+            console.log(result); // Tuomas
+
+
+            let perhe = [
+                {etunimi: "Tupu", sukunimi: "Ankka"},
+                {etunimi: "Hupu", sukunimi: "Ankka"},
+                {etunimi: "Lupu", sukunimi: "Ankka"},
+            ];
+            // value on elementti
+            // index on indeksi arraylle
+            // obj on koko array
+            result = perhe.find((value,index,obj) => {
+                // console.log(value, index, obj);
+                // find palauttaa seuraavan ehdon täyttävän olion
+                return value.etunimi === "Hupu";                
+            });
+            console.log(result); // {etunimi: "Hupu", sukunimi: "Ankka"}
+
+            // palauta indeksi, joka käyttää ehdon
+            result = perhe.findIndex((value,index,obj) => {
+                return value.etunimi === "Hupu";                
+            });
+            console.log(result); // 1
+
+            // .filter()
+            // "palauta kaikki elementit, jotka täyttävät ehdon", 
+            // eli luo array kaikista elementeistä, 
+            // jotka täyttävät annetun ehdon
+            // Tämä palauttaa numerot, joiden arvo on yli 500
+            result = numerolista.filter((value,index,array) => {
+                return value > 500;
+            });
+            console.log(result); // 555,666,777,888,999
+
+            // .map()
+            // "lue arrayn jokainen elementti ja
+            // tee kyseiselle elementille jotain"
+            // tämä käy arrayn läpi ja luo uuden arrayn,
+            // jossa elementtien arvo on lisätty 1000lla
+            result = numerolista.map((value,index,array) =>{
+                return value+1000;
+            })
+            console.log(result); // 1111,1222,1333,1444,1555,1666,1777,1888,1999
+
+            // .reduce()
+            // ideana on käydä array läpi ja luoda yksi tulos
+            // seuraavassa jos arvo on yli 500, tulee dummytotaliin + 1
+            let dummytotal = 0;
+            result = numerolista.reduce((previousValue, currentValue, currentIndex, array) => {
+                let dummyvalue = (currentValue > 500) ? 1 : 0;
+                dummytotal += dummyvalue;
+                return dummytotal;
+            });
+            console.log(result); // 5
+
+            // mutta kaikki ylläolevat asiat voidaan toteuttaa myös
+            // erillisinä funktioina!
+            // tällöin callback funktiolla on oltava samat
+            // argumentit kuin nuolifunktiolla (tai anonyymilla funktiolla)
+            function myfilterfunction(value,index,array) {
+                return value > 500;
+            }
+
+            result = numerolista.filter(myfilterfunction);
+            console.log(result); // 555,666,777,888,999
+
+            // Tehtävä
+            // Tee array numeroita, esim 10 kappaletta.
+            // Lisää kuhunkin arrayn numeroon 100.
+            // tulosta muutettu array
+            // tee sama nuolifunktiona, anonyymifunktioina 
+            // ja erillisellä callback funktiolla
+            let tehtäväarray = [2,67,4,7,32,9,1,7,1,110];
+            result = tehtäväarray.map((value,index,array) => {
+                return value+100;
+            });
+            console.log(result);
+
+            result = tehtäväarray.map(value => value+100 );
+            console.log(result);
+
+            result = tehtäväarray.map(function(value,index,array) {
+                return value+100;
+            });
+            console.log(result);
+
+            function tehtäväfunktio(value,index,array) {
+                return value+100;
+            }
+            result = tehtäväarray.map(tehtäväfunktio);
+            console.log(result);
+
+            // Käy läpi edellä oleva array ja filteröi pois
+            // luvut, jotka ovat alle 150.
+            // Esitä uusi array
+            result = result.filter((value,index,array) => {
+                return value >= 150;
+            });
+            console.log(result);
+
+            result = result.filter(value => value >= 150);
+            console.log(result);
+
+            // joukko-oppia
+
+            // Käytännössä on käytössä kaksi vaihtoehtoa:
+            // Map() ja Set()
+            // Käytämme vapaamuotoista avainta, jolla on
+            // vapaamuotoinen arvo...
+
+            let mymap = new Map();
+            mymap.clear();
+            // avain -- arvo parin asetus
+            mymap.set("AAA", "AAA123456");
+            // haku avaimella
+            console.log(mymap.get("AAA"));
+            // avaimelle annettu arvo
+            mymap.set(111, "111QQQ");
+            // saman arvon ollessa kyseessä arvo ei muutu
+            mymap.set(111, "111QQQ");
+
+            // Kukin avain on uniikki
+
+            for (let arvo of mymap.keys()) {
+                console.log(arvo); // avaimia
+                console.log(mymap.get(arvo)); // arvo
+            }
+            for (let avainarvopari of mymap) {
+                console.log(avainarvopari);
+                console.log(avainarvopari[0]); // avain
+                console.log(avainarvopari[1]); // arvo
+            }
+
+            // mapista voidaan poistaa avain--arvo
+            mymap.delete(111);
+
+            mymap.set(122, 12234567);
+            mymap.set(128, "auto");
+            console.log(mymap);
+
+            if (mymap.has(128)) {
+                console.log(128);
+            }
+
+            mymap.forEach((value, key, map) => {
+                console.log(key + " " + value);
+            });
+
+            // set toimii vastaavalla tavalla
+            // mutta siihen kerätään vain arvoja
+            // kukin arvo on uniikki
+            let myset = new Set();
+            myset.add("Kalle");
+            myset.add("Pirjo");
+            myset.add("Kalle"); // on jo olemassa, ei lisätä
+            console.log(myset);
+
+            // iteroidaan Set
+            for (let arvo of myset) {
+                console.log(arvo); // Kalle, Pirjo
+            }
+
+            // sekä value että value2 ovat sama arvo...
+            // tämä johtuu siitä että forEach on yhteensopiva Map() kanssa...
+            myset.forEach((value, value2, set) => {
+                console.log(value + " " + value2 + " " + set);
+            });
+
+            // Tee Map, jossa on tupu, hupu ja lupu
+            // Hae lupu
+            // näytä koko Map
+            // näytä kaikki Mapillä tehdyt tiedot.
+            let työmap = new Map();
+            työmap.set(1,"Tupu");
+            työmap.set(2,"Hupu");
+            työmap.set(3,"Lupu");
+            console.log(työmap.get(2));
+            console.log(työmap);
+            for (let elementti of työmap) {
+                console.log(elementti);
+            }
+
+
+            // Tee Set, jossa on tupu, hupu ja lupu
+            // Lisää Hannu ja Hannu
+            // näytä koko Set
+            // näytä kaikki Setillä tehdyt tiedot.
+            let työset = new Set();
+            työset.add("Tupu");            
+            työset.add("Hupu");            
+            työset.add("Lupu");            
+            työset.add("Hannu");            
+            työset.add("Hannu");            
+            console.log(työset);
+            for (let elementti of työset) {
+                console.log(elementti);
+            }
+            
+
+            // Destucturing eli arraysta muuttujia
+            myArrayA = ["Aku", "Ankka"];
+            [etunimi, sukunimi] = myArrayA;
+            console.log(etunimi); // Aku
+            console.log(sukunimi); // Ankka
+
+            myArrayA = ["Aku", "Ankka", "Hannu", "Hanhi"];
+            [etunimi, , etunimi2] = myArrayA;
+            console.log(etunimi2); // Hannu
+
+            [etunimi, sukunimi, ...nimi] = myArrayA;
+            console.log(nimi); // Hannu Hanhi
+
+            [etunimi = "Mikki", sukunimi = "Hiiri"] = [];
+            console.log(etunimi); // Mikki
+
+            [etunimi = "Mikki", sukunimi = "Hiiri"] = ["Minni"];
+            console.log(etunimi); // Minni
+
+            // Iltapäivän tehtävä
+            // Tee lotto
+            // Iltapäivän tehtävä
+            // Tee lotto
+/*
+            // Kirjastot ja Modulit
+
+            // Vakiot
+            const LOTTO_PALLOJEN_LUKUMÄÄRÄ = 7;
+            const LISÄNUMEROIDEN_LUKUMÄÄRÄ = 1;
+            const ARVAUSMAKSIMI = 40;
+            const ARVAUSMINIMI = 1;
+
+            // Muuttujat
+            let oikealottorivi = new Set();
+            let arvattulottorivi = new Set();
+
+            // Konteksti näytön ja koodin välillä
+
+            // Luokat ja Oliot
+
+            // Funktiot
+            function arvopallo() {
+                return Math.floor(Math.random() * ARVAUSMAKSIMI) + ARVAUSMINIMI;
+            }
+
+            function lotto() {
+                // määritä oikea lottorivi (salainen)
+                do {
+                    oikealottorivi.add(arvopallo());
+                } while (oikealottorivi.size < (LOTTO_PALLOJEN_LUKUMÄÄRÄ + LISÄNUMEROIDEN_LUKUMÄÄRÄ));
+                oikealottoriviarray = [...oikealottorivi];
+                console.log(oikealottoriviarray);
+
+                // kysy 7 lottonumeroa
+                do {
+                    let arvaus = Number(prompt("Anna lottonumero"));
+                    if (!isNaN(arvaus)) {
+                        arvattulottorivi.add(arvaus);
+                    }
+                } while (arvattulottorivi.size < LOTTO_PALLOJEN_LUKUMÄÄRÄ);
+                arvattulottoriviarray = [...arvattulottorivi];
+                arvattulottoriviarray.sort();
+                console.log(arvattulottoriviarray);
+
+                // arvioi tulokset
+                let pallot = [];
+                let pallot2 = [];
+                oikealottoriviarray.forEach((value, index, array) => {
+                    if (arvattulottoriviarray.includes(value)) {
+                        console.log(index + " pallo " + value + " osui!");
+                        pallot.push(value);
+                        if (index === LOTTO_PALLOJEN_LUKUMÄÄRÄ) {
+                            console.log(index + " lisänumeron pallo " + value + " osui!");
+                            pallot.pop();
+                            pallot2.push(value);
+                        }
+                    } else {
+                        console.log(index + " pallo " + value + " ei osunut!");
+                    }
+                });
+                console.log(`Sait ${pallot.length} oikein. Numerot olivat ${pallot}!`);
+                if (pallot2.length > 0) {
+                    console.log(`Sait myös lisänumeron oikein. Numero oli ${pallot2}!`);
+                }
+
+            }
+
+            // Event handlerien asetukset
+
+            // Datan haku
+
+            // (koodi)
+            lotto();
+*/
+
+
+
+        </script>
+    </body>
+</html>
+

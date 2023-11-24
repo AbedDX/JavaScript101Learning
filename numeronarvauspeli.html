@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="fi-FI">
+    <head>
+        <title>TITLE</title>
+        <meta charset="utf-8"/>
+        <style>
+        </style>
+    </head>
+    <body>
+        <h1>Numeronarvauspeli</h1>
+        <input id="syöttö" type="number" name="syöttö" min="1" max="100"/>
+        <button id="arvaus">OK</button>
+        <p id="output"></p>
+        
+        <script>
+            // NUMERONARVAUSPELI
+
+/*
+1 Visio? 
+Mitä numeronarvauspeli tekee?
+Kone arpoo numeron ja käyttäjä yrittää arvata sen.
+
+2 Yleissuunnittelu?
+Käyttäjä arvaa numeron
+-tarvitaan input (johon numero asetetaan)
+-Peli arvioi inputin napin (button) painalluksen jälkeen
+-buttonin viereen teksti isompi/pienempi
+-voitossa joku merkki näkyviin, että voitto
+-häviö? haluatko jatkaa, anna vinkkejä mihin suuntaan jatkaa,
+muuten sanotaan että hävisit pelin.
+
+näytöllä on oltava seuraavat asiat
+	input kenttä
+	button
+	teksti
+
+3 Use caset?
+-arvaa luku:
+	kirjoita numero input kenttään
+	paina button, jolloin arvaus arvioidaan
+	arvion jälkeen kirjoita tilanne tekstikenttään
+*/ 
+
+/*
+            // ALATASON SUUNNITTELU
+            
+            // 4. Mieti ohjelmarunko
+            // Yleensä kannattaa ohjelmoida aina samalla tavalla
+            // Koodari ja/tai yrityskohtainen asia
+            // Esimerkiksi:
+            // Kirjastot ja Modulit
+            // Vakiot
+            // Muuttujat
+            // Konteksti näytön ja koodin välillä
+            // Luokat ja Oliot
+            // Funktiot
+            // Event handlerien asetukset
+            // Datan haku
+            // (koodi)
+
+            // 5. Mieti ohjelman toiminta
+            // Suositan etenemistä kommentit edellä
+            // Kirjoita kommenttina mitä teet, sitten koodaat asian
+
+            // Periaatteessa koko ohjelman voi kirjoittaa kommentteina
+            // Usein tämä on liian raskasta mutta...
+            // esim kirjoita:
+            // Initialisoi pelin alkuarvot
+            // Peliluuppi alkaa
+            // Peliluuppi päättyy
+            // Arvioi annettu arvaus
+
+            // 6. Nyt koodataan...
+            // Koodaa yksi asia tai "muutama rivi kerrallaan"
+            // Sitten testataan...
+
+*/
+
+            // Kirjastot ja Modulit
+
+            // Vakiot
+
+            // Muuttujat
+            let numero = 0;
+            let pelaajanumero = 0;
+            let counter = 10;
+            let isvoitto = false;
+
+            // Konteksti näytön ja koodin välillä
+            const syöttö = document.getElementById("syöttö");
+            const arvaus = document.getElementById("arvaus");
+            const output = document.getElementById("output");
+
+            // Luokat ja Oliot
+
+            // Funktiot
+
+            // haetaan arvaus input kentästä
+            function haearvaus() {
+                // kysy käyttäjältä numero
+                pelaajanumero = Number(syöttö.value);
+                console.log(`haearvaus ${pelaajanumero}`);
+
+                // käsittele arvaus
+                // onko arvaus laillinen numero (1-100)?
+                // Jos ei, kysy uudestaan numero
+                // Jos on, jatketaan ja counter nousee yhdellä
+                if (pelaajanumero < 1 || pelaajanumero > 100) {
+                    alert(`${pelaajanumero} on laiton numero`);
+                    return;
+                } 
+                
+                // counter laskee yhdellä
+                counter--;
+                console.log(`Counter on ${counter}`);
+                // käsittele numero
+                console.log("jatketaan...");
+
+                // onko arvaus yhtä kuin numero?
+                // jos on VOITTO
+                // jos ei jatketaan...
+                if (pelaajanumero === numero) {
+                    isvoitto = true;
+                    output.innerText = `Voitto! Tarvitsit ${10-counter} arvausta!`;
+                }
+
+                // ilmoita käyttäjälle seuraavasti:
+                // oikea numero on isompi
+                // oikea numero on pienempi
+                // ilmoita counterin arvo: Tämä on arvaus X/10...
+                if (pelaajanumero > numero) {
+                    output.innerText = 
+                    `Oikea numero on pienempi! Sinulla on ${counter}/10 arvausta.`;
+                }
+                if (pelaajanumero < numero) {
+                    output.innerText = 
+                    `Oikea numero on suurempi! Sinulla on ${counter}/10 arvausta.`;
+                }
+
+                // onko peli voitettu/hävitty?
+                // jos counter on 0 niin peli on hävitty            
+                // jos VOITTO niin peli on voitettu
+                // peli loppuu, jos voitettu tai hävitty
+                // muuten peli jatkuu
+                if (counter === 0 && isvoitto === false) {
+                    output.innerText = `Hävisit!`;
+                    pelinloppu();                    
+                } else if (isvoitto) {
+                    pelinloppu();
+                }
+
+            }
+
+            // peli on loppu
+            function pelinloppu() {
+                syöttö.disabled = true;
+                arvaus.disabled = true;
+                let uusipeli = confirm("Uusi peli?");
+
+                if (uusipeli) {
+                    syöttö.disabled = false;
+                    arvaus.disabled = false;
+                    counter = 10;
+                    arvaus.value = "";
+                    numero = arvonumero();
+                    isvoitto = false;
+                    console.log(`tietokoneen numero on ${numero}`);
+                }
+
+            }
+
+            // arvo sattumanvarainen numero välillä 1-100
+            function arvonumero() {
+                return Math.floor(Math.random() * 100) + 1; 
+            }
+
+            // Event handlerien asetukset
+            arvaus.addEventListener("click", haearvaus);
+
+            // Datan haku
+
+            // (koodi)
+
+            // kerro käyttäjälle että ohjelma alkaa
+            console.log("NUMBER GUESSING GAME START");
+
+            // kone arpoo numeron
+            numero = arvonumero();
+            console.log(`tietokoneen numero on ${numero}`);
+/*
+            // kysy käyttäjältä numero
+            // katso haearvaus funktiota
+
+            // käsittele arvaus
+            // onko arvaus laillinen numero (1-100)?
+            // Jos ei, kysy uudestaan numero
+            // Jos on, jatketaan ja counter nousee yhdellä
+            if (pelaajanumero < 1 || pelaajanumero > 100) {
+
+            }
+*/
+
+            // onko arvaus yhtä kuin numero?
+            // jos on VOITTO
+            // jos ei jatketaan...
+            // ilmoita käyttäjälle seuraavasti:
+            // oikea numero on isompi
+            // oikea numero on pienempi
+            // ilmoita counterin arvo: Tämä on arvaus X/10...
+
+            // onko peli voitettu/hävitty?
+            // counter on 11+ niin peli on hävitty            
+            // cos VOITTO niin peli on voitettu
+            // peli loppuu, jos voitettu tai hävitty
+            // muuten peli jatkuu
+
+            // uusi peli kyllä/ei?
+
+        </script>
+    </body>
+</html>

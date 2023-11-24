@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="fi-FI">
+    <head>
+        <title>TITLE</title>
+        <meta charset="utf-8"/>
+        <style>
+        </style>
+    </head>
+    <body>
+        <h1>Day 04</h1>
+        <script>
+            // funktiot eli functions
+            // funktio mahdollistaa koodin uudelleenkäytön
+            // eli erotetaan toimintoja, joita kutsumalla
+            // ohjelma tekee jotain
+
+            // jos teet jotain monta kertaa ja kopioit 
+            // paljon koodia --> funktiolle on käyttöä
+
+            // funktion koko vaihtelee paljon
+            // joskus näkee, että hyvä pituus on yksi ruudullinen koodia
+            // käytännössä looginen kokonaisuus on hyvä mittatikku
+
+            // funktio toimii seuraavasti:
+            /*            
+
+            // funktion esittely
+            function <funktionnimi>(<argumentit>) {
+                // funktion sisäinen toiminta
+            }            
+
+            // funktion käyttö
+            funktionnimi(<argumentit>);
+            */
+
+            function heipähei() {
+                console.log("heipähei");
+            }
+
+            heipähei();
+
+            // funktio voi ottaa argumentteja
+            function laskeneliö(luku) {
+                console.log(luku ** 2);
+            }
+            laskeneliö(5); // 25
+
+            laskeneliö; // luo muuttujan nimeltä laskeneliö
+            laskeneliö(); // VIRHE argumentti puuttuu
+            laskeneliö("Aku"); // VIRHE vääränlainen argumentti
+//            qwrw(); // VIRHE tällaista funktiota ei ole
+
+            function sanokokonimi(etunimi, sukunimi) {
+                console.log(`${etunimi} ${sukunimi}`);
+            }
+            sanokokonimi("Aku","Ankka");
+            sanokokonimi(); // undefined undefined
+            sanokokonimi("QQQ"); // QQQ undefined
+            sanokokonimi("AAA","BBB","CCC"); // AAA BBB
+
+            // Tehtävä 1:
+            // tee funktio joka tulostaa annetun arvon kuution
+            function laskekuutio(luku) {
+                console.log(luku**3);
+            }
+            laskekuutio(5); // 125
+
+            // Tehtävä 2:
+            // tee funktio, joka laskee alueen pinta-alan
+            function laskepintaala(leveys, korkeus) {
+                console.log(leveys*korkeus);
+            }
+            laskepintaala(4,3); // 12
+
+            // Tehtävä 3:
+            // tee funktio, joka laskee annetulle säteelle
+            // ympyrän pinta-alan.
+            function laskeympyränpintaala(säde) {
+                console.log(Math.PI*(säde**2));
+            }
+            laskeympyränpintaala(5); // 78
+
+            // funktion sisällä voi olla muuttujia
+            // funktio voi käyttää globaaleja ja lokaaleja muuttujia.
+
+            // globaalia muuttujaa käytetään seuraavasti:            
+            function laskepalkkakustannus(bruttopalkka) {
+                // globaalia muuttujaa voidaan käyttää funktiossa
+                console.log(bruttopalkka*globaalipalkankerroin);
+                // globaalia muuttujaa voi muuttaa funktiossa
+                globaalipalkankerroin = 1.8;            
+            }
+            // globaali muuttuja määritetään funktion ulkopuolella
+            let globaalipalkankerroin = 1.0;            
+            laskepalkkakustannus(3000); // 3000
+
+//            globaalipalkankerroin = 1.8;            
+            laskepalkkakustannus(3000); // 5400
+            console.log(globaalipalkankerroin);
+
+            // paikallista muuttujaa käytetään seuraavasti
+            function laskepalkat(bruttopalkka) {
+                // paikallinen muuttuja luodaan funktion sisällä
+                // se on olemassa vain funktion sisällä
+                let kerroin = 1.8;
+                console.log(bruttopalkka*kerroin);
+            }
+
+            laskepalkat(3000);
+            //console.log(kerroin); // VIRHE kerroin ei ole olemassa
+
+            // VAROITUS!
+            // ÄLÄ ANNA globaaleille ja lokaaleille muuttujille
+            // samoja nimiä!
+
+            // Overloading
+            // Ei ole overloadingia, vaan viimeinen
+            // funktio on ainoa funktio
+
+            // kokeile ajaa ensiksi seuraava koodi
+/*
+            function overloadtesti(arg) {
+                console.log(arg);
+            }
+
+            function overloadtesti(arg1,arg2) {
+                console.log(arg1+arg2);
+            }
+
+            overloadtesti("aarne");
+            overloadtesti("bertta","celsius");
+
+            // tulostaa:
+            // aarneundefined 
+            // berttacelsius
+*/
+
+/*
+            function overloadtesti(arg1,arg2) {
+                console.log(arg1+arg2);
+            }
+
+            function overloadtesti(arg) {
+                console.log(arg);
+            }
+
+            overloadtesti("aarne");
+            overloadtesti("bertta","celsius");
+
+            // tulostaa:
+            // aarne
+            // bertta
+*/
+
+
+            // funktiolla voi olla default argumentteja
+            // koska argumenttit täytetään vasemmalta lukien
+            // on default argumenttien oltava aina oikealta lukien
+            function lausunimi(etunimi, sukunimi, titteli="herra") {
+                console.log(`${titteli} ${etunimi} ${sukunimi}`);
+            }
+            lausunimi("Janne", "Kemppi");
+            lausunimi("Terhi", "Kemppi", "rouva");
+            lausunimi("Sari", "Kemppi", "neiti");
+            // jos argumenttejä ei ole, otetaan default arvo mukaan
+            lausunimi("Jukka"); // herra Jukka undefined
+            // jos argumentteja on liikaa, viimeiset pudotetaan
+            lausunimi("Matti", "Pekka", "Kemppi", "vapaaherra"); 
+
+
+            // Tehtävä 1:
+            // tee funktio näytäjunareitti, jossa on lähtöasema ja pääteasema
+            // pääteasema on yleensä Oulu.
+            // lähtöasema voi olla mikä vaan.
+            // ilmoita <lähtöasema> vie <pääteasema>.
+/*
+            function näytäJunaReitti(lähtöasema, pääteasema="Oulu") {
+            console.log(`${lähtöasema} vie aina ${pääteasema}.`)
+            }
+
+            lähtöasema = prompt("Anna lähtöasema");
+            pääteasema = prompt("Anna pääteasema");
+
+            if (pääteasema.localeCompare("")===0) {
+                näytäJunaReitti(lähtöasema);
+            } else {
+                näytäJunaReitti(lähtöasema, pääteasema);
+            }
+
+            // Tilaa liput oulusta Kuopioon ja kuopiosta ouluun
+            näytäJunaReitti("Oulu", "Kuopio");
+            näytäJunaReitti("Kuopio"); 
+
+            let matka = ["Oulu", "Kuopio"];
+            näytäJunaReitti(matka[0],matka[1]);
+            näytäJunaReitti(matka[1],matka[0]);
+*/
+
+
+
+            // funktiolla voi olla paluuarvo
+            // käytetään return käskyä
+            function laskehypotenuusa(a,b) {
+                return Math.sqrt(a**2 + b**2);
+            }
+            let result = laskehypotenuusa(3,4);
+            console.log(result); // 5
+
+            function testaus() {
+                return "testaustulos";
+                // tälle riville ei mennä koskaan
+                // funktion toteutus loppuu return lauseeseen
+                console.log("ärripurri");
+            }
+
+            // paluuarvoa EI tarvitse ottaa talteen
+            testaus();
+            console.log(testaus());
+
+            function testausA() {
+                return; // palauttaa undefined
+            }
+            console.log(testausA());
+
+            // switch case
+            // switch määrittää tiedon,
+            // jota casen mukaan toteutetaan
+
+            let testi = 2;
+            // switch vaatii jonkinlaisen tiedon
+            switch (testi) {
+                // case on yksi arvo, johon tietoa verrataan
+                case 1:
+                    console.log("111");
+                    break;                    
+                // tässä arvo 2 ja 3 menee tähän
+                case 2:
+                case 3:
+                    console.log("222");
+                    break;
+                // default johon mennään, jos casea ei löydy
+                // default ei ole pakollinen
+                default:
+                    console.log("jotain muuta");
+            }
+/*
+            // Tehtävä
+            // Työntekijän palkka on 60e tunnilta.
+            // palkka on 1.5 kertainen lauantaina ja 2 kertainen sunnuntaina
+            // kysy käyttäjältä mikä päivä on kyseessä:
+            // MA, TI, KE, TO, PE, LA tai SU
+            // ja ilmoita palkka
+*/
+
+
+/*
+            let päivä = prompt("Anna päivä").toLocaleUpperCase();
+            let palkka = 60;
+            switch(päivä) {
+                case "SU":
+                    palkka *= 2;
+                    break;
+                case "LA":
+                    palkka *= 1.5;
+                    break;
+            }
+            console.log(`Palkka on ${palkka} euroa tunnilta.`);
+*/
+            // switch casellä voi olla myös range eli arvoalue
+            // käytä varoen!
+            // periaatteessa case voi olla vertailu
+            // johon mennään jos ehto on true
+            // switch on aina true
+            // ensimmäinen oikea vastaus hyväksytään
+
+            let tulos = 15;
+            switch(true) {
+                case tulos > 10 && tulos <= 20:
+                    console.log("11-20");
+                    break;
+                case tulos > 20 && tulos <= 30:
+                    console.log("21-30");
+                    break;
+            }
+
+            // Tehtävä
+            // aseta lämpötilan mukaan vaatteet
+            // rajat ovat alle 0, 0-10, 10-20 ja yli 20.
+            // ilmoita sopivat vaatteet lämpötilan mukaan
+/*
+            let lämpötila = 17;
+            switch(true) {
+                case lämpötila < 0:
+                    console.log("Talvitakki");
+                    break;
+                case lämpötila >= 0 && lämpötila <= 10:
+                    console.log("Paksu takki");
+                    break;
+                case lämpötila > 10 && lämpötila <= 20:
+                    console.log("Takki");
+                    break;
+                case lämpötila > 20:
+                    console.log("aurinkolasit");
+                    break;
+            }
+*/
+            // Tee ohjelma, jossa on funktio, joka ilmoittaa
+            // onko kyseessä karkausvuosi
+            // Sääntö 1: Joka neljäs vuosi
+            // Sääntö 2: Ei sadalla jaollinen
+            // Sääntö 3: Joka 400 jaollinen
+/*
+            function onkokarkausvuosi(vuosi) {
+                let karkausvuosi = false;
+            // Sääntö 1: Joka neljäs vuosi
+            karkausvuosi = (vuosi % 4) ? false : true;
+            // Sääntö 2: Ei sadalla jaollinen
+            karkausvuosi = (vuosi % 100) ? karkausvuosi : false;
+*/            
+/*
+            if (vuosi % 100 === 0) {
+                karkausvuosi = false;                
+            }
+*/
+            // Sääntö 3: Joka 400 jaollinen
+//            karkausvuosi = (vuosi % 400) ? karkausvuosi : true;
+/*
+            if (vuosi % 400 === 0) {
+                karkausvuosi = true;                
+            }
+*/
+
+//            return karkausvuosi;
+//            }
+/*
+            let vuosi;
+            do {
+                vuosi = Number(prompt("Anna vuosiluku"));
+                console.log(onkokarkausvuosi(vuosi));
+            } while (vuosi !== 0);
+*/
+        </script>
+    </body>
+</html>
+
+

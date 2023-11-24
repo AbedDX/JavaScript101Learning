@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="fi-FI">
+    <head>
+        <meta charset="utf-8"/>
+    </head>
+    <body>
+        <h1>Day 01</h1>
+        <script>
+            // tämä on yksi rivinen kommentti!
+
+            /*
+                Tässä kommentissa on monta riviä
+                tämäkin on kommenttirivi
+            */
+
+            // Javascript ajetaan rivi riviltä
+            // ; merkki erottaa komennot
+            console.log("tämä on tekstiä");
+            console.log("tämä on myös tekstiä");
+            console.log("tämä on kolmas rivi");
+
+            // muuttuja
+            // muuttuja on muistipaikka tietokoneessa
+            // johon on tallennettu jokin arvo
+            // muuttuja merkitään joko let, const tai var
+            // var on vanha tapa mutta toimii
+            // yleensä muuttujat nimetään let nimellä
+            let mynumber01 = 123;
+            let mynumber02 = 456;
+            let mynumber03 = mynumber01 + mynumber02;
+            console.log(mynumber03);            
+
+            // const on vakio ("constant")
+            // vakiolla on aina arvo
+            // const myconsttest; // VIRHE!
+
+            const myconst01 = 111;           
+            // vakiolle ei voi asettaa uutta arvoa
+            // myconst01 = 222; // VIRHE!
+
+            // MUUTTUJIEN JA VAKIOIDEN NIMEÄMISESSÄ 
+            // KÄYTÄ AINA KUVAAVAA KIELTÄ
+
+            // Tietotyypit data type
+            // jokainen muuttujan on jonkin tyyppinen
+            // esimerkiksi Number, String, Boolean...
+
+            // Number eli kaikki numerot
+            mynumber01 = 1234;
+            mynumber02 = 123.456; // murtoluvut
+
+            // BigInt on harvinainen, käytetään lähinnä simuloinnissa
+            // alue on 2^53 -1
+            let mybignumber = BigInt(1234);
+
+            // String tarkoittaa mitä tahansa merkkijonoa
+            // "" ja '' merkit käytössä
+            let mystring01 = "Aku Ankka";
+            let mystring02 = "tässä on 'outoja' merkkejä";
+
+            // lista eli array
+            let mylista01 = [1,2,3,4];
+
+            // Boolean on tosi/epätosi ja saa arvoksi aina true/false.
+            let myboolean01 = true;            
+
+            // typeof kertoo jokin muuttujan tietotyypin
+            
+            console.log(1234); // 1234
+            console.log(typeof(1234)); // Number
+
+            console.log("1234"); // 1234
+            console.log(typeof("1234")); // String
+
+            // tietotyyppi "muuttuu lennossa", jos se saa
+            // toisen tietotyypin kaltaisen arvon.
+
+            let mytest01 = 1234; // Number
+            mytest01 = "Aku Ankka"; // String           
+            console.log(mytest01); // "Aku Ankka"
+            console.log(typeof(mytest01)); // String
+
+            // tietotyypin muuttaminen fiksusti tehdään
+            // seuraavasti:
+            mytest01 = 0;
+            mytest02 = 0;
+
+
+
+            // mikä tahansa tietotyyppi --> string
+            mytest02 = String(mytest01);
+            console.log(typeof(mytest02)); // String
+
+            // mikä tahansa tietotyyppi --> number
+            mytest02 = Number("555");
+            console.log(typeof(mytest02)); // number
+
+            mytest02 = Number("Aku Ankka");
+            console.log(mytest02); // NaN
+            // NaN tarkoittaa että arvo EI ole numero.
+            // tietotyypin muutos ei siis onnistunut
+
+            // Tee seuraavat tehtävät:
+//            console.log("tehtävät");
+
+            // Tehtävä 1: Kirjoita "Hello <oma nimi>" konsolille.
+//            console.log("Hello Janne");
+
+            // Tehtävä 2: Kirjoita yksirivinen kommentti.
+
+            // tämä on yksirivinen kommentti
+
+            // Tehtävä 3: Kirjoita monirivinen kommentti.
+
+            /*
+                kommentti
+                lisää kommenttia hei hei hei tässä on kommenttini
+            */
+
+            // Tehtävä 4: luo muuttuja ja anna sille arvoksi "qwerty".
+            // Tulosta tämän jälkeen arvo konsolille
+
+            let muuttuja1 = "qwerty";
+            console.log(muuttuja1);
+
+            // Tehtävä 5: Luo kaksi number tyyppistä muuttujaa ja anna niille arvot. 
+            // Tulosta summa konsolille.
+            let numbermuuttuja1 = 444;
+            let numbermuuttuja2 = 777;
+            console.log(numbermuuttuja1+numbermuuttuja2);
+/*
+            // pop up ikkunat
+            // Alert, Prompt ja Confirm
+
+            // alert ikkunaa käytetään tiedotukseen
+            // käytetään vika yms poikkeutilanteissa
+            // käytä vain, jos asialle ei voi mitään!
+            alert("Hälyytys kahvin puutteesta");
+
+            // prompt ikkunaa käytetään tiedon hakuun
+            // vastaus on yksiselitteinen ja "helppo"
+            // cancel antaa arvoksi null
+            // "tyhjä" ja OK antaa default
+            let promptresult = prompt("Sano nimesi");
+            console.log(promptresult);
+
+            let promptresult2 = prompt("Sano nimesi2","default");
+            console.log(promptresult2);
+
+            // confim ikkunaa käytetään kun haklutaan varmistaa
+            // eli tämä on vaarallinen päätös, haluatko ihan varmasti?
+            let confirmresultA = confirm("Olenko Kuopiossa?");
+            console.log(confirmresultA);
+*/
+            // käsitellään hieman stringejä tässä
+            // stringit voi yhdistää + termillä
+            let tekstiA = "kokeilu";
+            let tekstiB = "juttu";
+            let tekstiC = tekstiA + tekstiB;
+
+            console.log(tekstiA + tekstiB);
+            console.log(tekstiC);
+
+            // backtick eli ` käyttö mahdollistaa muuttujan
+            // upottamisen string tyyppiseen muuttujaan
+            let tekstiD = `jippo ${tekstiC}`;
+            console.log(tekstiD);
+/*
+            // Tehtävä:
+
+            // Kysy käyttäjältä hänen nimensä ja ikänsä
+            // tulosta konsolille
+            // "Hei! Olen <nimi> ja ikäni on <ikä>"
+            // "Sadan vuoden päästä ikäni olisi <ikä+100>"
+
+            let nimi = prompt("Anna nimesi");
+            let ikä = Number(prompt("Anna ikäsi"));
+            console.log(`Hei! Olen ${nimi} ja ikäni on ${ikä}.`);
+            console.log(`Sadan vuoden päästä ikäni olisi ${ikä+100}.`);
+*/
+            </script>
+    </body>
+</html>

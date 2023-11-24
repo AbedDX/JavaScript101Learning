@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="fi-FI">
+    <head>
+        <title>TITLE</title>
+        <meta charset="utf-8"/>
+        <style>
+        </style>
+    </head>
+    <body>
+        <h1>Day 06</h1>
+        <script>
+            // päivän epistola on function expression
+            // ja anonymous function ja lambda function '
+            // (tai arrow function)
+            // Suomeksi: funktio muuttujana
+            // anonyymi funktio ja nuolifunktio
+
+            // Asia 15: funktio muuttujana eli function expression
+            // funktio on arvo.
+            // sitä voidaan käyttää muuttujan arvona
+
+            // Tässä tavallinen funktio ja sen kutsu
+            function terveiset() {
+                console.log("Terveiset!");
+            }
+            terveiset();
+            console.log(terveiset);
+
+/*
+            // kokeilemme käyttää funktiota arvona
+            // Kaarisulkuja ei käytetä, koska kyseessä on funktion antaminen
+            // arvona eikä funktiokutsu!
+            let mymuuttujaA = terveiset;
+            console.log(mymuuttujaA);
+
+            // Seuraava EI toimi
+            // mymuuttujaA.terveiset();
+            // Seuraava toimii...
+            mymuuttujaA();
+
+            // Voimme siis luoda anonyymin funktion arvoksi
+            let mymuuttujaB = function() {
+                console.log("Terveiset B!");
+            }
+            mymuuttujaB();
+            console.log(mymuuttujaB);
+
+            // Periaatteessa voimme nyt kopioida funktion arvoksi monille muuttujille
+            let mymuuttujaC = terveiset;
+            let mymuuttujaD = terveiset;
+
+            // Seuraava askel on luoda callback eli funktio voidaan antaa
+            // argumenttina funktiolle.
+
+            // Jos argumentti on funktio, sitä kutsutaan suluilla
+            function kysy(kysy, kyllä, ei) {
+                if (confirm(kysy)) { 
+                    kyllä(); 
+                } else { 
+                    ei(); 
+                };
+            }
+
+            function sanoON() {
+                console.log("ON KYLMÄ");
+            }
+
+            function sanoEI() {
+                console.log("EI OLE KYLMÄ");
+            }
+
+            // Perinteinen tapa toteuttaa asia
+            // koska funktio ilman sulkeita on arvo, se voidaan antaa argumenttina
+            kysy("On tänään kylmä?", sanoON, sanoEI);
+
+            function testausB() {
+                console.log("BBB");
+            }
+            testausB();
+
+            // Tämä funktio ottaa sisäänsä argumentin nimeltä arg.
+            // argumentti on funktio, joten sitä voidaan kutsua
+            // kirjoittamalla argumentti() tyylisesti. 
+            function testausF(arg) {
+                arg();
+            }
+            // kutsutaan edellämainittua funktiota ja annetaan
+            // funktion argumentiksi testausB niminen funktio.
+            testausF(testausB);
+
+            // Sama toiminta voidaan toteuttaa myös anonyymeinä funktioina
+            // eli annetaan argumenttina itse luomamme funktio
+            kysy("On tänään kylmä?", 
+                function() { console.log("very cold!"); },
+                function() { console.log("not very cold!"); }
+                )
+
+            // Tehtävä 21: Milloin käytetään function expressionia?
+            // sillä luodaan callback funktio
+            // siis funktio ajetaan, jos/kun jokin ehto täyttyy
+
+            // Asia 16: anonyymit funktiot
+            // Funktio ei periaatteessa tarvitse nimeä
+            // Tällaisia funktioita nimitetään anonyymeiksi funktioiksi
+            // Näitä käytetään paljon event handlereissä ja callback funktioissa
+            // koska funktion nimi on turha itse funktion toiminnalle
+            
+            // function(<argumentit>) {  komennot }
+
+            // eli tässä näkyy kaksi funktiota:
+            // ensimmäisessä tapauksessa annamme funktion
+            // arvoksi muuttujalle. 
+            let mysummalaskuQQQ = function nanonano (argumenttiA, argumenttiB) {
+                console.log(argumenttiA + argumenttiB);
+            }
+            mysummalaskuQQQ(111,222);
+
+            // Tässä tapauksessa annamme samanlaisen anonyymin
+            // funktion arvoksi muuttujalle
+            let mysummalaskuA = function (argumenttiA, argumenttiB) {
+                console.log(argumenttiA + argumenttiB);
+            }
+            mysummalaskuA(111,222);
+
+            // Ero on siis ettei anonyymilla funktiolla ollut nimeä...
+
+            // nuolifunktio (arrow function) eli lambda funktioiksi
+            // on anonyymi funktio
+            // (<argumentit>) => { komennot }
+
+            // Tässä toteutamme nuolifunktiolla anonyymin funktion
+            let mysummalaskuB = (argumenttiA, argumenttiB) => {
+                console.log(argumenttiA + argumenttiB);
+            }
+            mysummalaskuB(111,222); // 333
+
+            // nuolifunktio voi olla ilman argumenttejä
+            // ja aaltosulkuja ei tarvita, jos komentoja on vain yksi
+            let mysummalaskuC = () => console.log("summaC"); // summaC
+            mysummalaskuC(); // summaC
+
+            // nuolifunktio voi myös palauttaa jotain
+            let mysummalaskuD = (arg1,arg2) => {
+                console.log("summalaskuD");
+                return Number(arg1 + arg2);
+            }
+            let myresultB = mysummalaskuD(444,555);
+            console.log(myresultB); // 999
+
+            // Tehtävä 22: luo anonyymi funktio ja kutsu sitä...
+            // funktio kirjoittaa konsolille Hellurei!
+            let anonyymi22A = function() { console.log("Hellurei!"); }
+
+            //let anonyymi22N = () => { console.log("Hellurei!"); }
+            let anonyymi22N = () => console.log("Hellurei!");
+
+            anonyymi22A(); // Hellurei!
+            anonyymi22N(); // Hellurei!
+
+            // Tehtävä 23: luo anonyymi funktio ja kutsu sitä...
+            // funktio ottaa argumentin ja laskee sen kuution 
+            // ja tulostaa arvon konsolille
+
+            let anonyymi23A = function(argumentti) { console.log(argumentti**3); }
+
+            let anonyymi23N = (argumentti) => console.log(argumentti**3);
+
+            anonyymi23A(3); // 27
+            anonyymi23N(3); // 27
+
+            // Tehtävä 24: luo anonyymi funktio ja kutsu sitä...
+            // Käytä tehtävä 23:n funktiota hyväksesi. 
+            // palauta kuution arvo toiseen muuttujaan.
+
+            let anonyymi24A = function(argumentti) { return Number(argumentti**3); }
+
+            // Tämän voi tehdä monellakin eri tapaa...
+//            let anonyymi24N = (argumentti) => { return Number(argumentti**3); }
+//            let anonyymi24N = (argumentti) => Number(argumentti**3);
+            let anonyymi24N = (argumentti) => argumentti**3;
+
+            let muuttuja24A = anonyymi24A(3); // 27
+            let muuttuja24N = anonyymi24N(3); // 27
+            console.log(muuttuja24A);
+            console.log(muuttuja24N);
+
+            // Tee html tiedosto, jossa on button
+            // buttonia painamalla kirjoitat konsolille 
+            // "heipä hei!"
+
+            // tee uusi button, jota painamalla 
+            // kirjoitat konsolille arvon 2 kerrottuna kahdella
+            // käytä event handlerinä anonyymi tai nuolifunktiota
+*/
+
+        </script>
+    </body>
+</html>

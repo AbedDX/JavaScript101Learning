@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> 🦘LeapYear🗓️Checker</title>
+
+        <body>
+            <h1>Day 5</h1>
+            <h2>Introduction:</h2>
+            <p>In Day 4 of our programming journey, day 4 was all about creating a LeapYear application and becoming proficient with developer tools and VSCode's debugging feature. The day involved setting up the development environment, writing code to check leap years, and the assigment is from JavaScript04 and using debugging techniques from JavaScript05 to address bugs. VSCode's debugging feature was particularly helpful in identifying and fixing issues in the code. By the end of the day, a functional LeapYear application was ready, and a newfound confidence in debugging and development tools was gained. It was a productive and enlightening day in the journey of becoming a devops.<p>
+            <h2>Prerequisites:</h2>
+            <p>- Knowledge of JavaScript from previous lesson.</p>
+            <p>- Visual Studio Code (VSCode) already installed on your computer.</p>
+            
+            <h1>🦘LeapYear🗓️</h1>
+            <p>Enter a year</p>
+            <input id="inputField" type="number"></input>
+            <input id="inputSubmit" type="submit" value="Calculate the Leap year"></input>
+            <p id="outputField"></p>
+
+            <script>
+                function onecheckLeapYear(year){
+                    //adding invalid input if user input is null or isNaN ect
+                    
+                    // User enters the input
+                    // Check the Year if it has remainder by 4,100,400
+                    if ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0) {
+                        console.log("Leap Year!");
+                        
+                        //alert("Leap Year!");
+                    // else statement check the year has remains
+                    } else {
+                        console.log("Not Leap Year");
+                        
+                        //alert("Not Leap Year");
+                    }return year              
+                }
+                function twoCheckLeapYear(year) {
+                // using way too many if statements
+                if (year % 4 === 0){
+                    if (year % 100 === 0) {
+                        if (year % 400 === 0) {
+                            console.log("Leap Year");
+                            return true
+                            //alert("Leap Year");
+                        } else {
+                            console.log("Not Leap Year");
+                            return false
+                            //alert("Not Leap Year");
+                        }
+                    } else {
+                        console.log("Leap Year");
+                        //alert("Leap Year");
+                        return true
+                    }
+                } else {
+                    console.log("Not Leap Year");
+                    return false
+                    //alert("Not Leap Year");
+                
+                }
+            }
+                // ALATASON SUUNNITTELU
+            
+            // 4. Mieti ohjelmarunko
+            // Yleensä kannattaa ohjelmoida aina samalla tavalla
+            // Koodari ja/tai yrityskohtainen asia
+            // Esimerkiksi:
+            // Kirjastot ja Modulit
+            // Vakiot
+            // Muuttujat
+            // Konteksti näytön ja koodin välillä
+            const inputField = document.getElementById("inputField");
+            const inputSubmit = document.getElementById("inputSubmit");
+            const outputField = document.getElementById("outputField");
+
+            // Luokat ja Oliot
+            // Funktiot
+            function tapahtumankäsittelijä(){
+                let year = Number(inputField.value);
+                console.log(year);
+                outputField.innerText = String(twoCheckLeapYear(year))
+                inputField.value = "";
+                inputField.focus();
+
+            }
+            // Event handlerien asetukset
+            inputField.addEventListener("change", tapahtumankäsittelijä);
+            inputSubmit.addEventListener("change", tapahtumankäsittelijä);
+            
+            // Datan haku
+            // (koodi)
+
+
+                
+            </script>
+        </body>
+    </head>
+</html>

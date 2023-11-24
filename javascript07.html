@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="fi-FI">
+    <head>
+        <title>TITLE</title>
+        <meta charset="utf-8"/>
+        <style>
+        </style>
+    </head>
+    <body>
+        <h1>Day 07</h1>
+        <script>
+            // OLIOT
+
+            // Olio voidaan luoda käyttämällä literaalia tai konstruktoria
+            // Konstruktori on parempi, koska se mahdollistaa konstruktorin käsittelyn.
+
+            let myOlioA = {}; // perinteinen tapa luoda olio
+            let myOlioB = new Object(); // tämä käyttää konstruktoria
+
+            // olio on joukko avain arvo pareja
+            // termi field on yksi avain-arvo pari
+            // vaihtoehto on käyttää termiä property
+            let myOlioC = { 
+                etunimi: "Aku", 
+                sukunimi: "Ankka", 
+                "talon numero": 616
+            };
+            console.log(myOlioC.etunimi); // Aku
+//            console.log(myOlioC."talon numero"); // virhe!
+            console.log(myOlioC["talon numero"]); // 616
+            console.log(myOlioC["etunimi"]); // 616
+//            console.log(myOlioC[etunimi]); // virhe!
+
+            // oliolle voidaan lennosta lisätä uusi property
+            myOlioC.kotikaupunki = "Ankkalinna";
+            console.log(myOlioC.kotikaupunki); // Ankkalinna
+
+            myOlioC.hubbapuppa = 1234;
+
+            console.log(myOlioC);
+
+            // property voidaan tuhota
+            delete myOlioC.kotikaupunki;
+            console.log(myOlioC.kotikaupunki); // undefined
+
+            delete myOlioC.hubbapuppa; // tuhoaa kentän
+
+            // Propertyn nimenkin voi luoda lennosta
+            let myMuuttujaA = "Kukka";
+            myOlioC[myMuuttujaA] = "Voikukka";
+//            myOlioC = {[myMuuttujaA]: "Voikukka"};
+            console.log(myOlioC.Kukka); // Voikukka
+
+            // Tarkastamme onko joku avain oliossa?
+            console.log("etunimi" in myOlioC); // true
+            console.log("kukkuluuruu" in myOlioC); // false
+
+            // olion sisällön tulostus
+            // for - in
+            // for - of
+
+            for (let avain in myOlioC) {
+                console.log(avain);
+                console.log(myOlioC[avain]);
+            }
+
+/*
+            // Seuraava koodi aiheuttaa virheen,
+            // koska olio ei ole iteroitavissa
+            for (let iter of myOlioC) {
+                console.log(iter);
+            }            
+*/
+
+            // Olion kopiointi
+            // kloonaus on perinteisesti vaikeaa...
+
+            // objekti on referenssimuuttuja, eli kopiointi on erilainen kuin
+            // tavallisilla muuttujilla
+            // kopionti = merkillä kopioi ainoastaan referenssin! ÄLÄ KÄYTÄ
+            // kopiointi kunnolla (deep copy) käyttää assign operaatiota! KÄYTÄ TÄTÄ
+
+            let myOlioE = {};
+            let myOlioF = myOlioE; // kopioi referenssin
+            console.log(myOlioE === myOlioF); // true
+
+            // referenssin kopioinnin vuoksi avain-arvo pari näkyy
+            // kummassakin oliossa.
+            myOlioF.koe = "juttuxxx";
+            console.log(myOlioE);
+            console.log(myOlioF);
+            // toisaalta avain-arvoparin tuhoamisen jälkeen
+            // se tuhoutuu kummaltakin oliolta
+            delete myOlioE.koe;
+            console.log(myOlioE);
+            console.log(myOlioF);
+            // mutta itse olio tuhotaan määräämällä sen arvoksi
+            // undefined ja tämä EI vaikuta arvoihin eikä muihin
+            // olioihin! Sama toimii myös määräämällä arvoksi null.
+            myOlioF = undefined;
+//            myOlioF = null;
+            console.log(myOlioE); // on olemassa
+            console.log(myOlioF); // undefined
+
+            myOlioE = null;
+
+            // oikea tapa tehdä kopio shallow copylla
+            console.log("shallow copy oikein");
+            myOlioAarne = { arvo: "Aarne" };
+            myOlioBertta = myOlioAarne; // shallow copy
+            myOlioAarne = undefined;
+            console.log(myOlioBertta);
+
+            // kopioinnissa pyritään deep copyyn eli kumpikin
+            // olio on aidosti erillinen.
+
+            // Kopionti oikein eli deep copy
+            myOlioE = {testi: "KUKKA", koe: "KOE"};
+            myOlioF = {testi: "TESTI", kokeilu: "KOKEILU"};
+            // Kopioi F olion sisältö E olioon
+            // Kopiointi kirjoittaa samannimisen avaimen yli
+            // eri avaimien tapauksessa kumpikin jää jäljelle
+            // eli F ====> E
+            Object.assign(myOlioE, myOlioF);
+            console.log(myOlioE); // testi, koe, kokeilu
+
+            // Kloonaa olio F uudeksi olioksi QQQ
+            let myOlioQQQ = Object.assign({},myOlioF);
+
+            // Kloonaa olio F uudeksi olioksi ZZZ
+            let myOlioZZZ = {};
+            Object.assign(myOlioZZZ,myOlioF);
+
+            console.log(myOlioQQQ);
+            console.log(myOlioZZZ);
+            
+            myOlioQQQ.koe = "QWERTY";
+            myOlioQQQ.testi = "QWERTY";
+
+            console.log(myOlioQQQ);
+            console.log(myOlioZZZ);
+
+
+            // Kloonaus EI kopioi olion sisällä olevia olioita!
+            // tällöin käytetään structuredClone komentoa
+            // Katso: https://developer.mozilla.org/en-US/docs/Web/API/structuredClone
+            myOlioA = null;
+            myOlioB = null;
+            myOlioB = { arvo: 123, tieto: { aaa: 111, bbb:222 } };
+            myOlioA = structuredClone(myOlioB);
+            console.log(myOlioA);
+
+            // katso myös "spread" menetelmää
+            // https://www.samanthaming.com/tidbits/70-3-ways-to-clone-objects/
+
+            // Protip: voit käyttää ainakin periaatteessa JSON parserointia
+            // JSON on tiedonsiirrossa käytetty koodaus, jolla olio
+            // muutetaan stringiksi ja voidaan koodata taas olioksi.
+            // JSONia käytettäessä oliosta tulee aina deep copy.
+
+            let jsontesti = { arvo: "zxcvb" };
+            let jsontulos = JSON.parse(JSON.stringify(jsontesti));
+
+            jsontesti.koe = "QWERTY";
+            jsontesti.arvo = "QWERTY";
+
+            console.log(jsontesti);
+            console.log(jsontulos);
+            
+            // oliolle voi antaa avain arvoparin arvoksi funktion
+            // tämä logiikka on sama kuin muuttujalle arvoksi
+            // annettavassa funktiossa!
+
+            // tapa 1: käytä anonyymia funktiota
+            myOlioA = null;
+            myOlioA = {
+                // anna avaimelle arvoksi anonyymi funktio
+                helloworld: function() { console.log("Hello World!"); }
+            };
+            myOlioA.helloworld();
+
+            // tapa 2: käytä nuoli funktiota
+            myOlioA = null;
+            myOlioA = {
+                // anna avaimelle arvoksi nuolifunktio
+                helloworld: () => { console.log("Hello World nuoli!"); },
+                hellotesti: () => { 
+                    console.log("hellotesti");
+//                    myOlioA.helloworld(); 
+//                    this.helloworld; 
+                }
+            };
+            myOlioA.helloworld();
+            myOlioA.hellotesti();
+
+            // tapa 3: käytä funktion omaa tapaa.
+            // KÄYTÄ TÄTÄ TAPAA!
+            myOlioA = null;
+            myOlioA = {
+                // luodaan metodi (samaa tekniikkaa käytetään luokkien kanssa)
+                helloworld() { console.log("Hello World oma tape!"); },
+                hellotesti() { 
+                    console.log("hellotesti oma tapa");
+                    this.helloworld(); 
+                }
+            };
+            myOlioA.helloworld();
+            myOlioA.hellotesti();
+
+            // keyword this mahdollistaa olion sisäisten propertyjen 
+            // käytön.
+            // this viittaa mihin tahansa propertyyn olion sisällä
+            // KÄYTÄ TÄTÄ TAPAA!
+            myOlioA = null;
+            myOlioA = {
+                teksti: "Kukkuluuruu!",
+                helloworld() { console.log(this.teksti); },
+                hellotesti() { 
+                    console.log("hellotesti oma tapa");
+                    this.helloworld(); 
+                },
+                hellokoe: function() { 
+                    // tämä funktio toimii mutta...
+                    console.log("hellokoe"); 
+                    console.log(typeof this); 
+//                    this.helloworld(); 
+                },
+                hellokoe2: () => { 
+                    // tämä funktio toimii mutta...
+                    console.log("hellokoe2");
+                    console.log(typeof this); 
+                    // tämä ei... 
+//                    this.helloworld();
+                    // koska nuolifunktio käyttää this sanaa
+                    // olioon, jossa se on luotu.
+                    // Tällöion se ei kuitenkaan tee binding
+                    // luovaan olioon mutta anonyymi funktio tekee.
+                    // https://www.w3schools.com/js/js_arrow_function.asp             
+                    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions
+
+                }
+            };
+//            myOlioA.helloworld();
+//            myOlioA.hellotesti();
+            myOlioA.hellokoe();
+            myOlioA.hellokoe2(); 
+            // TEHTÄVÄ:
+            // 1) Tee olio myTehtävä, jolla on kolme avain arvo paria
+            // etunimi, sukunimi ja ikä
+            let myTehtävä = {
+                etunimi: "Hannu",
+                sukunimi: "Hanhi",
+                ikä: 123
+            };
+
+            function kokonimi() {
+                console.log(`Hei! Olen ${myTehtävä.etunimi} ${myTehtävä.sukunimi}.`)
+            }
+            kokonimi();
+
+            myTehtävä = null;
+
+            // 2) Tee funktio kokonimi() joka tulostaa 
+            // "Hei! olen <aku> <ankka>"
+            myTehtävä = {
+                etunimi: "Aku",
+                sukunimi: "Ankka",
+                ikä: 123,
+                kokonimi() {
+                    console.log(`Hei! Olen ${this.etunimi} ${this.sukunimi}.`)
+                }
+            };
+            myTehtävä.kokonimi();
+            
+            // kloonaus niin, että oliolla on funktioita EI 
+            // välttämättä toimi suoraan edellä mainituilla menetelmillä!
+            // tällöin pitää hieman "kikka kakkostaa"
+            // https://stackoverflow.com/questions/66936820/clone-object-with-functions-inside
+            // Kannattaa käyttää assign ja structureCopy metodeja!!!!
+
+            let functionusingolioA = {
+                nimi: "aku ankka",
+                sanonimi() { console.log(`Hei! Olen ${this.nimi}.`); }
+            };
+            let functionusingolioB = {};
+
+            // tämä ei toimi!
+            // functionusingolioB = JSON.parse(JSON.stringify(functionusingolioA));
+
+            // tämä toimii!
+            Object.assign(functionusingolioB,functionusingolioA);
+
+            functionusingolioA = undefined;
+            functionusingolioB.sanonimi();
+
+        </script>
+    </body>
+</html>
+

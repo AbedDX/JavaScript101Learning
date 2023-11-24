@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="fi-FI">
+    <head>
+        <title>TITLE</title>
+        <meta charset="utf-8"/>
+        <style>
+        </style>
+    </head>
+    <body>
+        <h3></h3>
+        <p></p>
+        <script>
+
+            // Lue tämä:
+            // https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Introducing
+
+            /* Asia 30: setTimeout ja setInterval */
+            // setTimeout liipaisee kerran
+            // setInterval liipaisee X viiveen välein
+            // https://developer.mozilla.org/en-US/docs/Web/API/setTimeout
+/*
+            function myFunctionA(arg) {
+                console.log("myFunctionA - " + arg);
+            }
+            // käynnistä funktio A 2 sekunnin kuluttua argumentillä 
+            setTimeout(myFunctionA,2000,"muikku");
+
+            // käynnistä seuraava koodi 3 sekunnin kuluttua
+            setTimeout("console.log(\"Testaus\")",3000);
+
+            
+            let mytimeout = setTimeout( () => console.log("nuolifunktiolla"), 4000 );
+            console.log("sarjanumero " + mytimeout);
+
+            // timeoutin voi estää sarjanumerolla
+            clearTimeout(mytimeout);
+*/
+
+/*
+            // setInterval
+            function myFunctionA(arg) {
+                console.log("myFunctionA - " + arg);
+            }
+            
+//            let myInterval = setInterval(() => console.log("hei!"), 1000);
+            let myInterval = setInterval(myFunctionA, 2000,"silakka");
+            console.log("Interval käynnistetty!");
+            // pysähdy 5 sekunnin jälkeen
+            setTimeout(() => { clearInterval(myInterval); console.log("Stop!"); }, 5000);
+*/
+
+            /* Asia 31: callback */
+            // https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Introducing
+/*
+            // tyypillinen use case on jonkin asian hakeminen, joka vie aikaa
+            // esimerkiksi kaikki, jossa ollaan yhteydessä toiseen rautaan
+            // haetaan internetin yli
+            // callbackfunktioiden käytön ideana on usein jalostaa tehtyä asiaa
+            // eli vaikkapa muokataan saatua tietoa kun kaikki tieton on saatu
+
+            // perusesimerkki
+
+            function myFunctionB(luku, callback) {
+                // STEP 3 -- Annetaan funktio, jolle annetaan syöttöarvoina
+                // tarvittavat argumentit ja callback funktio
+                for (let iter=0; iter < 10000000000; iter++) {}
+                console.log("myFunctionB end");
+                // callback on argumenttina syötetty funktio
+                // se ajetaan aina viimeisenä rivinä
+                callback(luku);
+            }
+
+            // STEP 4 -- funktio, joka ajetaan callback funktiona
+            function myNewFunction(luku) {
+                console.log(luku);
+            }
+
+            function myCallbackOperationA() {
+                // STEP 2 -- määritä mikä funktio ajetaan
+                // callback funktiona 
+                // koko operaation päätytttyä
+                // tässä se on myNewFunction
+                myFunctionB(111, myNewFunction);
+            }
+
+            // STEP 1 -- käynnistä callback operaatio
+            myCallbackOperationA();
+*/
+
+/*
+            // callback funktioita ja operaatioita voi linkittää
+            // tässä perusesimerkki
+            // anonyymifunktioiden (ja nuolifunktioiden) käyttö yleistä
+
+            let error = null;
+
+            function myFunctionB(luku, callback) {
+                for (let iter=0; iter < 1000000000; iter++) {}
+                console.log("myFunctionB end");
+                // callback on argumenttina syötetty funktio
+                // se ajetaan aina viimeisenä rivinä
+                callback(luku)
+            }
+
+            // funktiossa ajetaan toista funktiota B
+            // joka tarvitsee jonkin argumentin ja funktion, joka ajetaan
+            // funktio Bn suorituksen jälkeen
+            function myCallbackOperationA() {
+                myFunctionB(111, (result) => { 
+                    console.log(result);
+                    if (error) {
+                        // error handling
+                    } else {
+                        myCallbackOperationB(result * 2 );
+                    }
+                });
+            }
+
+            function myCallbackOperationB(arg) {
+                myFunctionB(arg, (result) => { 
+                    console.log(result); 
+                    if (error) {
+                        // error handling
+                    } else {
+                        console.log("end");
+                    }
+                });
+            }
+
+            myCallbackOperationA();
+*/
+            /* Asia 31: promise */
+            //promisen tila on aina:
+            //    pending
+            //    rejected
+            //    fulfilled (käytetään usein sanaa resolve)
+            // lue tämä:
+            // https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Promises
+/*
+            // STEP 1 -- luodaan promise olio
+            // se palauttaa joko resolve tai reject tilanteen mukaan
+            let promise = new Promise(function(resolve, reject) {
+                setTimeout(() => resolve("OK!"), 4000);
+                // setTimeout(() => reject(new Error("ERROR!")), 5000);
+            });
+*/
+            // moni valmis funktio on luonteeltaan promise olioita
+            // esimerkiksi fetch
+//            let promise = fetch("https:\\kaleva.fi");
+
+            // promise käytetään seuraavaksi eli jos tulee
+            // resolve ---> then()
+            // reject ---> then() ja sitten luodaan error ja mennään .catch
+
+            // vaihtoehdot promisen käsittelyssä ovat:
+            // .then() on vastauksen jälkeinen käsittely --- tehdään about aina
+            // .catch() on luodun errorin käsittely -- tehdään jos throw new Error
+            // .finally() ajetaan viimeisenä --- käytetään esimerkiksi streamin sulkemiseen
+
+            // then --- kun promise on ajettu loppuun tehdään "then"
+/*
+            promise
+            .then(
+                resolve => {
+                    console.log(resolve); // OK!
+                    console.log("THEN resolve!");
+                },
+                reject => {
+                    console.log(reject); // Error message
+                    console.log("THEN reject");
+                    throw new Error("RIKKI!");
+                }
+            )
+            //catch -- ajetaan jos tuli vika
+            .catch( error => {
+                console.log(error);
+            })
+            // finally -- ajetaan joka tapauksessa
+            .finally( () => {
+                console.log("FINALLY resolves/reject");
+            })
+*/
+
+            // Periaatteessa promiseja voidaan chainata loputtomasti...
+/*
+
+            // STEP 1 --- luodaan promise olio
+            // tälle oliolle voidaan suoraan kiinnittää .then() toiminnat
+            new Promise(function(resolve, reject) {
+                setTimeout(() => resolve("OK!"), 5000);
+                // setTimeout(() => reject(new Error("ERROR!")), 8000);
+            })
+            .then( function(result) {
+                console.log(result); // OK!
+                // return palauttaa ensimmäisen .then() tuloksen
+                // tämä siirtyy seuraavan .then() argumentiksi
+                return "first then result...";
+            })
+            .then( function(result) {
+                console.log(result); // first then result...
+                return "second then result...";
+            })
+            .then( function(result) {
+                console.log(result); // second then result...
+                console.log("third then result..."); // third then result...
+                // tämä ei palauta mitään, koska toiminta loppuu...
+            })
+            .catch( error => {
+                console.log(error);
+            });
+
+            // catchin paikalla on merkitystä!
+            // jos se on keskellä .then() rakennetta, se jatkaa seuraavaan
+            // tämä käy tilanteessa, jossa catchissä paikataan ongelma
+            // ja sitten jatketaan toimintaketjua
+
+            // catchia ei tarvitse olla, silloin error "katoaa" bittiavaruuteen...
+*/
+            // promisella on muutama metodi erikoistilanteisiin
+            // nämä ovat lähinnä monien promisejen yhteiskäyttöä
+            // periaatteessa aina X kpl promiseja lauotaan yhtä aikaa...
+            // promisen tyypistä riippuen toimitaan jatkon kannalta seuraavasti
+
+            // .all --- 
+            // kaikkien promisejen on ensin toteuduttava
+            // sitten kaikkien promisejen sisältö on käytössä jatkettaessa...
+            // promisejen vastaukset ovat arrayssa
+            // virhe haussa johtaa kaikkien promisejen epäonistumiseen
+
+            // .race --- 
+            // Ensimmäinen vastaus, joka toteutuu/epäonnistuu on kaikkien vastaus
+            // Tämä ensimmäinen vastaus on se, jonka mukaan jatketaan...
+
+            // .any --- 
+            // Ainakin yhden promisen on onnistuttava
+            // Tämän onnistuneen promisen mukaan jatketaan...
+            // epäonnistuu vain jos kaikki promiset epäonnistuvat
+
+
+/*
+            // .all --- 
+            // kaikkien promisejen on ensin toteuduttava
+            // sitten kaikkien promisejen sisältö on käytössä jatkettaessa...
+            // promisejen vastaukset ovat arrayssa
+            // virhe haussa johtaa kaikkien promisejen epäonistumiseen
+            Promise.all([
+                new Promise((resolve, reject) => setTimeout(() => resolve(111), 1000)),
+                new Promise((resolve, reject) => setTimeout(() => resolve(222), 2000)),
+                new Promise((resolve, reject) => setTimeout(() => resolve(333), 3000)),
+                new Promise((resolve, reject) => setTimeout(() => resolve(444), 4000)),
+                new Promise((resolve, reject) => setTimeout(() => reject(new Error("Whoops!")), 2500)),
+            ])
+            .then(responselist => {
+                for (let response of responselist) {
+                    console.log(response);
+                }
+            })
+            .catch( error => {
+                console.log(error);
+            });
+*/
+/*            
+            // .race --- 
+            // Ensimmäinen vastaus, joka toteutuu/epäonnistuu on kaikkien vastaus
+            // Tämä ensimmäinen vastaus on se, jonka mukaan jatketaan...
+            Promise.race([
+            new Promise((resolve, reject) => setTimeout(() => resolve(111), 4000)),
+                new Promise((resolve, reject) => setTimeout(() => resolve(222), 4000)),
+                new Promise((resolve, reject) => setTimeout(() => resolve(333), 3900)),
+                new Promise((resolve, reject) => setTimeout(() => resolve(444), 4000)),
+                new Promise((resolve, reject) => setTimeout(() => reject(new Error("Whoops!")), 4100)),
+            ])
+            .then(response => {
+                console.log(response);
+            })
+            .catch( error => {
+                console.log(error);
+            });
+*/
+
+/*
+            // .any --- 
+            // Ainakin yhden promisen on onnistuttava
+            // Tämän onnistuneen promisen mukaan jatketaan...
+            // epäonnistuu vain jos kaikki promiset epäonnistuvat
+            Promise.any([
+                new Promise((resolve, reject) => setTimeout(() => resolve(111), 1500)),
+                new Promise((resolve, reject) => setTimeout(() => resolve(222), 1000)),
+                new Promise((resolve, reject) => setTimeout(() => resolve(333), 1000)),
+                new Promise((resolve, reject) => setTimeout(() => resolve(444), 1000)),
+                new Promise((resolve, reject) => setTimeout(() => reject(new Error("Whoops!")), 500)),
+            ])
+            .then(response => {
+                console.log(response);
+            })
+            .catch( error => {
+                console.log(error);
+            });
+*/
+            /* Asia 32: async await */
+            // promise voidaan toteuttaa varatuilla sanoilla
+            // async function on asynkronisesti toimiva funktio
+            // await tekee sitä seuraavasta funktiokutsusta promisen
+            // jonka toiminta jatkuu kun await funktio palauttaa jotain
+            // await sana toimii vaikka funktio olisi jo promise...
+/*
+            // asynkroninen funktio, toimii pääthreadin ulkopuolella
+            // koko funktio on siis Promise
+            async function myFunctionC() {
+                return 1; // palautusarvo
+            }
+
+            // tässä kutsutaan asynkronista funktiota, joka palauttaa arvon.
+            // tämän jälkeen .then notaatiolla voidaan käyttää vastausta
+            myFunctionC()
+                .then(response => console.log(response)); // 1
+
+
+            // STEP 2: async sanalla muutettu promiseksi
+            // tämä funktio on pääthreadistä erillinen prosessi
+            async function myFunctionD() {
+                // tässä luodaan Promise muuttuja
+                let promise = new Promise((resolve, reject) => {
+                    setTimeout(() => resolve("OK!"), 2000);
+                });
+                // STEP 3: await odottaa että promise ajetaan loppuun
+                // await avainsanalla varustettu funktio palauttaa vastauksen
+                // HUOM! funktio odottaa tällä rivillä kunnes vastaus on saatu.
+                let response = await promise;
+                // ilman await sanaa funktio ei odota vaan ajaa seuraavaan
+                // await sanaan tai async funktion loppuun asti
+                // let response = promise;
+
+                console.log("promise ja await on ajettu loppuun!");                
+                console.log(response); // "OK!"
+                }
+
+            // STEP 1: tehdään asynkronisen funktion (promisen kutsu)
+            myFunctionD();
+*/
+
+            // tehtävä --- toteuta seuraava komento
+            // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+            // https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS/Errors
+/*
+            fetch('https://example.com', { mode: 'no-cors' })
+            .then((response) => {
+                console.log(response);
+            });
+
+            async function myFunctionE() {
+                try {
+                    let response = await fetch('https://example.com', { mode: 'no-cors' });
+                    console.log(response);
+                    let result = await response.body;
+                    console.log(result);
+                }
+                catch (error) {
+                    console.log("error!");
+                }
+            }
+
+            myFunctionE();
+*/
+
+
+            // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+            // https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS/Errors
+            fetch('https://api.nobelprize.org/v1/prize.json', { mode: 'cors' })
+            .then((response) => {
+                console.log(response);
+                // palautetaan vastaus muutettuna json objektiksi
+                return response.json();
+            })
+            .then((response) => {
+                // tämän pitäisi näyttää json tieto javascript oliona
+                console.log(response);
+
+                // tulosta vuoden 2022 nobelistien etunimet ja sukunimet
+                for (let voittaja of response.prizes) {
+                    if (voittaja.year === "2022") { 
+                        for (let laureate of voittaja.laureates) {
+                            console.log(laureate.firstname + " " + laureate.surname);
+                        }
+                    }
+                }
+
+/*
+                response.prizes
+                    .filter(win => win.year === "2022")
+                    .map(voittaja => voittaja.laureates)
+                    .map(laureates => {
+                        laureates.forEach(laureate => {
+                            let firstname = (laureate.firstname !== undefined) ? laureate.firstname : "";
+                            let surname = (laureate.surname !== undefined) ? laureate.surname : "";
+                            console.log(firstname + " " + surname);
+                        })
+                    });
+*/
+            });
+/*
+            async function getwinners() {
+                let response = await fetch('https://api.nobelprize.org/v1/prize.json', { mode: 'cors' })
+                console.log(response);
+                let voittajaobjekti = await response.json();
+                console.log(voittajaobjekti);
+                voittajaobjekti.prizes
+                    .filter(win => win.year === "2022")
+                    .map(voittaja => voittaja.laureates)
+                    .map(laureates => {
+                        laureates.forEach(laureate => {
+                            let firstname = (laureate.firstname !== undefined) ? laureate.firstname : "";
+                            let surname = (laureate.surname !== undefined) ? laureate.surname : "";
+                            console.log(firstname + " " + surname);
+                        })
+                    });
+
+            }
+
+            getwinners();
+*/
+        </script>
+    </body>
+</html>

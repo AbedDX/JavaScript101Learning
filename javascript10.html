@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="fi-FI">
+    <head>
+        <title>TITLE</title>
+        <meta charset="utf-8"/>
+        <style>
+        </style>
+    </head>
+    <body>
+        <h1>Day 10</h1>
+        <script>
+            // luokka ja perintä
+            // miksi luokan voi periä?
+            // 1) lapsiluokka on äitiluokan erikoistapaus
+            // eli äitiluokka ei tule liian monimutkaiseksi,
+            // jos erikoistapaukset jaetaan lapsiluokkiin
+            // 2) äitiluokka on ryhmittelyä varten luotu 
+            // kokonaisuus, johon villisti erilaiset lapsiluokat 
+            // kuuluvat. Kokonaisuus muodostuu siis erikoistapauksista.
+
+            // LAPSELLA VOI OLLA VAIN YKSI ÄITI
+
+            // ÄIDILLÄ VOI OLLA MONTA LASTA
+
+            // perintä tapahtuu extends sanalla
+
+            // ensiksi lapsiluokassa on oltava konstruktori, jossa
+            // kutsutaan äitiluokkaa ja oltava samat argumentit
+            
+            // toiseksi lapsi perii äidin ominaisuudet ja toiminnat
+            // eli propertyt ja metodit.
+            // a) äidin toiminnallisuus periytyy eli äidin funktiot
+            // toimivat samalla tavalla.
+            // alla kehrää() funktio toimii näin
+            // b) lapsi voi uudelleenkirjoittaa (override) äidin
+            // toiminnallisuuden eli funktiot
+            // alla kävelee() toimii näin
+            // c) lapsella voi olla kokonaan uutta toiminnallisuutta
+            // käytännössä se on kokonaan uusi funktio
+            // alla kilpailee() toimii näin
+
+            class Cat {
+                constructor(nimi) {
+                    this.nimi = nimi;
+                }
+                kehrää() {
+                    console.log(`${this.nimi} kehrää!`);
+                }
+                kävelee() {
+                    console.log(`${this.nimi} kävelee!`);
+                }
+            }
+
+            // extends merkitsee, että lapsiluokka perii Cat luokalta.
+            class Siamese extends Cat {
+                // constructor on rakennettava niin, että siinä
+                // kutsutaan äitiluokan constructoria ensin.
+                constructor(nimi,laatu) {
+                    // äitiluokan konstruktorin kutsunta.
+                    // argumenttien oltava samat kuin äidin konstruktorissa
+                    // käytetään sanaa super(<argumentit>)
+                    super(nimi);
+                    // lapsiluokan avain-arvo yhdistelmien luonti
+                    this.laatu = laatu;
+                }
+                // tämä funktio overridaa äidin funktion
+                // funktion sisältö on erilainen mutta nimi ja argumentit
+                // on oltava samat!
+                kävelee() {
+                    console.log(`${this.nimi} kävelee kuin siamilainen!`);
+                }
+                // tämä funktio on kokonaan uutta toiminnallisuutta
+                kilpailee() {
+                    console.log(`${this.nimi} kilpailee ja laatu on ${this.laatu}!`);
+                }
+
+            }
+
+            // luodaan äiti ja lapsi
+            let äiti = new Cat("kali");
+            let lapsi = new Siamese("Jenny","korkea");
+            äiti.kehrää();
+            lapsi.kehrää();
+            äiti.kävelee();
+            lapsi.kävelee();
+            // äiti.kilpailee(); // aiheuttaa virheen
+            lapsi.kilpailee();
+
+            // TEHTÄVÄ
+            // Tee äitiluokka Talo jolla on ominaisuuksina
+            // leveys ja pituus
+            // ja funktio pintaala(), joka ilmoittaa pintaalan
+            class Talo {
+                constructor(leveys,pituus) {
+                    this.leveys = leveys;
+                    this.pituus = pituus;
+                }
+                pintaala() {
+                    console.log(`Pintaala on ${this.leveys*this.pituus}`);
+                }
+            }
+
+            // Tee lapsiluokka Huone, jolla on ominaisuuksina
+            // leveys, korkeus ja tarkoitus
+            // tee funktio tiedot(), joka ilmoittaa huoneen tarkoituksen
+            // ja pinta-alan.
+            class Huone extends Talo {
+                constructor(leveys,korkeus,tarkoitus) {
+                    super(leveys,korkeus);
+                    this.tarkoitus = tarkoitus;
+                }
+                tiedot() {
+                    console.log(`Huoneen käyttö: ${tarkoitus} ja koko on ${this.pintaala()}`);
+                }
+            }
+
+            // Luo kotitalosi niin että sinulla on yksi Talo 
+            // luokan olio ja jokainen oma huone tietoineen.
+            let talo = new Talo(10,3);
+            let wc = new Huone(2,2,"WC");
+            let makuuhuone = new Huone(3,4,"Makuuhuone");
+            let lastenhuone = new Huone(3,4,"Lastenhuone");
+            let olohuone = new Huone(4,4,"Lastenhuone");
+
+            // polymorfismi liittyy luokkiin seuraavasti:
+            // ajatus on luoda lista olioita, joille voidaan
+            // antaa yhteisesti komentoja.
+            // eli käytetään äidissä määritettyjä komentoja.
+ 
+            let kissalista = [];
+            kissalista.push(äiti);
+            kissalista.push(lapsi);
+
+            for (let elementti of kissalista) {
+                elementti.kävelee();
+            }
+
+            // Tehtävä
+            // esitä talosi ja kaikkien huoneiden pinta-alat!
+            // Käytä polymorfismia.
+
+            let talotiedot = new Array(talo,wc,makuuhuone,lastenhuone,olohuone);
+            for (let elementti of talotiedot) {
+                elementti.pintaala();
+            }
+
+            // static
+            // static käytetään kun halutaan toimintaa, joka on luokkakohtainen.
+
+            // Tällöin ei luoda olioita vaan kutsutaan luokkaa ja 
+            // käytetään sille määrättyjä propertyja ja funktioita.
+            // käytetään esimerkiksi luotaessa apufunktioita ja
+            // ryhmitettäessä ne omaan ohjelmistokirjastoonsa
+
+            class StaticTest {
+                static pii=3.14;
+                static ympyränpintaala(säde) {
+                    return Number(Math.PI * säde ** 2);
+                }                
+            }
+            console.log(StaticTest.pii);
+            console.log(StaticTest.ympyränpintaala(10));
+
+            // Numeroiden pyörittelyä
+
+            let myNumberA = 1000000;
+            myNumberA = 1_000_000;
+            myNumberA = 1e6;
+            myNumberA = 1e-6; // miljoonasosa
+
+            // hexadesimaalit ovat 0x alkuisia
+            console.log(0x1f);
+
+            // binäärit ovat 0b alkuisia
+            console.log(0b0011);
+
+            // oktaaliluvut ovat 0o alkuisia
+            console.log(0o5);
+
+            // numeron voi muuttaa stringiksi
+            let myMuuttujaA = myNumberA.toString(); // default on 10 numerojärjestelmä
+            myMuuttujaA = myNumberA.toString(4); // 4 numerojärjestelmä
+            myMuuttujaA = String(myNumberA);
+            
+            // numeroliteraalin muutos stringiksi vaatii .. notaation
+            myMuuttujaA = 1234..toString();
+            console.log(myMuuttujaA);
+
+            // Pyöristykset
+            // floor pyöristää pienempään suuntaan (alaspäin)
+            // ceil pyöristää suurempaan suuntaann (ylöspäin)
+            // round pyöristää "oikein" -- käytä tätä!
+            // trunc poistaa desimaalin
+
+            console.log(Math.floor(123.456)); // 123
+            console.log(Math.floor(-123.456)); // -124
+            console.log(Math.ceil(123.456)); // 124
+            console.log(Math.ceil(-123.456)); // -123
+
+            console.log(Math.round(123.456)); // 123
+            console.log(Math.round(123.666)); // 124
+            console.log(Math.round(-123.456)); // 123
+            console.log(Math.round(-123.666)); // -124
+
+            console.log(Math.trunc(123.456)); // 123
+            console.log(Math.trunc(123.666)); // 123
+            console.log(Math.trunc(-123.456)); // -123
+            console.log(Math.trunc(-123.666)); // -123
+
+            // pyöristyksen tarkkuus määritetään toFixed(<tarkkuus>)
+            console.log(123.4567.toFixed(2)); // 123.46
+
+            // numeroiden suurin ongelma on tarkkuuden puute
+            // error tulee aina mukaan laskuihin
+            // vika on yleensä pieni mutta se kumuloituu laskujen myötä
+            console.log(0.1.toFixed(25)); // näkyy error
+
+            // pyöristys oikein tehdään .toFixed(<tarkkuus>) metodilla
+            // tämä tosin kippaa jos desimaaleja on liikaa...
+
+            // ääretön on Infinity ka -Infinity
+            myNumberA = Infinity;
+            console.log( isNaN(Infinity)); // false
+            console.log( isFinite(Infinity)); // false - ei ole äärellinen numero
+            console.log( isFinite(123.456)); // true - on äärellinen numero
+
+            // parseInt ja parseFloat tekee periaatteessa numeron kaivuun 
+            // stringistä mahdolliseksi mutta vaatii numerolla alkavan sanan
+            // tämä toimii rajoitetusti!
+
+            console.log(parseInt("123€")); // 123
+            console.log(parseFloat("123.456€")); // 123.456
+            console.log(parseFloat("$123.456")); // NaN
+            console.log(parseFloat("123,456€")); // 123 eli väärin
+
+            // muita matemaattisia funktioita:
+            console.log(Math.pow(2,3)); // 8 eli 2 potenssiin 3
+
+            // Math.abs on itseisarvo
+            console.log(Math.abs(-123.456)); // 123.456
+
+            // Katso myös: 
+            // https://www.w3schools.com/js/js_math.asp
+            // https://www.w3schools.com/js/js_random.asp
+
+            // String
+           
+            // Erikoismerkit alkavat aina \ merkillä
+            // Katso myös:
+            // https://www.w3schools.com/js/js_strings.asp
+            // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types
+
+            console.log("O\'Malley ja käytä \\ merkkejä!");
+
+            myMuuttujaA = "teksti";
+            // käytä backtickejä
+            let myMuuttujaB = `lisää ${myMuuttujaA} tekstiin, ja laske ${Math.PI * 2 }!`;
+            console.log(myMuuttujaB);
+
+            myMuuttujaA = "Tämä on tekstiä!";
+            console.log(myMuuttujaA[1]); // ä
+            console.log(myMuuttujaA[0]); // T
+
+            for (let merkki of myMuuttujaA) {
+                console.log(merkki);
+            }
+
+            // stringillä on pituus
+            console.log(myMuuttujaA.length);
+            
+            // string on immutable!
+            myMuuttujaA[0] = "G"; // ei sallittu, koska immutable
+            myMuuttujaA = "G" + myMuuttujaA.slice(1);
+            console.log(myMuuttujaA);
+
+            // toUpperCase() ja toLowerCase()
+            console.log(myMuuttujaA.toLowerCase());
+            console.log(myMuuttujaA.toLocaleLowerCase());
+            
+            // indexOf ja lastIndexOf
+            // etsivät lauseen sijainnin, -1 jos ei löydy
+            // haku on case sensitiivinen
+            myMuuttujaA = "Tämä on pitkä rimpsu pitkiä tekstejä IT.";
+            console.log(myMuuttujaA.indexOf("Tämä")); // 0
+            console.log(myMuuttujaA.indexOf("tämä")); // -1
+            console.log(myMuuttujaA.indexOf("kukka")); // -1
+            console.log(myMuuttujaA.indexOf("it")); // 9 
+            console.log(myMuuttujaA.indexOf("it",10)); // 22
+            console.log(myMuuttujaA.lastIndexOf("it")); // 22
+
+            // ei case sensitiivisessä haussa kannattaa muuttaa aluksi 
+            // vaikka upper caseksi ja sitten tehdä etsintä
+            // koska javascriptin metodit ovat ketjutettavissa
+            console.log(myMuuttujaA.toUpperCase().lastIndexOf("IT")); // 37
+            console.log(myMuuttujaA.toUpperCase().indexOf("IT")); // 9
+
+            // tämä hakee kaikki "it" stringit muuttujasta
+            let iter = -1;
+            while ((iter = myMuuttujaA.indexOf("it", iter + 1)) != -1) { 
+                console.log( "sijainti: " + iter );
+            }
+
+            // includes kertoo onko jokin teksti muuttujassa
+            console.log(myMuuttujaA.includes("Tämä")); // true
+            console.log(myMuuttujaA.includes("kukka")); // false
+
+            // startsWith ja endsWith
+            console.log(myMuuttujaA.startsWith("Tämä")); // true
+            console.log(myMuuttujaA.startsWith("kukka")); // false
+            console.log(myMuuttujaA.endsWith("kukka")); // false
+            
+            // slice leikkaa stringistä osan irti
+            // ekanumero on mones aloittaa 
+            // toinen mihin merkkiin asti (mutta ei mukana)
+            // negatiivinen aloittaa perästä päin
+            console.log(myMuuttujaA.slice(1)); // X merkistä eteenpäin kaikki
+            console.log(myMuuttujaA.slice(1,3)); // X merkistä Y edeltävään positioon
+            console.log(myMuuttujaA.slice(-4,-1));
+            console.log(myMuuttujaA.slice(-1,-4)); // "" ei sisältöä
+
+            // substring leikkaa osan X kohdasta Y kohtaan
+            console.log(myMuuttujaA.substring(1,5));
+            console.log(myMuuttujaA.substring(5,1)); // "" ei sisältöä
+
+            // substr leikkaa osan X kohdasta Y merkkiä, Y positio on mukana
+            console.log(myMuuttujaA.substr(1,8));
+            console.log(myMuuttujaA.substr(8,1)); // "" ei sisältöä
+
+            //stringien vertailut ovat perinteisesti vaikeita
+
+            // string vertailussa käytetään hyväksi UTF-16 encodingia
+            console.log("Z".codePointAt(0) === 90); // UTF-16ssa "Z" on 90
+            console.log(String.fromCodePoint(90)); // 90, koska UTF-16ssa "Z" on 90
+
+            // vertailussa käytetään myös localeCompare
+            // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare
+            console.log("Öljy".localeCompare("Oljy")); // 1
+
+            // Tehtävä
+            // kirjoita lause muuttujaan
+            // erota kaikki muuttujan sanat erikseen listassa.
+            let muuttuja = "Tämä on lause";
+            let result = muuttuja.split(" ");
+            console.log(result);
+
+            // Tehtävä
+            // Muuta seuraava lause:
+            // Kuopio;KUO;1244kokeilu
+            // Tähän muotoon:
+            // Kuopio,kuo,1244
+            muuttuja = "Kuopio;KUO;1244kokeilu";
+            result = muuttuja.split(";");
+            result[1] = result[1].toLocaleLowerCase();
+            result[2] = parseInt(result[2]);
+            muuttuja = result.join(",");
+            console.log(muuttuja);
+
+            // Tehtävä 
+            // Muuta tekstistä sana "kirkasta" ja korvaa se sanalla "kaunista":
+            // Istun oksalla ja katson kirkasta aurinkgonlaskua. Ulkona on todella ihanan kirkasta.
+            muuttuja = "Istun oksalla ja katson kirkasta aurinkgonlaskua. Ulkona on todella ihanan kirkasta.";
+            result = muuttuja.replaceAll("kirkasta", "kaunista");
+            console.log(result);       
+
+            // Tehtävä
+            // Syötä jokin luku ja kirjoita se nurinperin
+            muuttuja = prompt("Syötä joku luku");
+            muuttuja = muuttuja ?? "0";
+            muuttuja = muuttuja.split("").reverse().join("");
+            console.log(muuttuja);
+
+            // Tehtävä 
+            // Etsi kaikien vokaalien sijainti sanasta "rautakauppias" 
+            iter = -1;
+            muuttuja = "rautakauppias";
+            let vokaalit = ["a","e","i","o","u"];
+            vokaalit.forEach((value) => {
+                while ((iter = muuttuja.indexOf(value, iter + 1)) != -1) { 
+                    console.log( value + "--- sijainti: " + iter );
+                }
+            });
+
+        </script>
+    </body>
+</html>

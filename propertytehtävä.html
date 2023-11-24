@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fi-FI">
+    <head>
+        <title>Property tehtävät</title>
+        
+    </head>
+    <body>
+        <h1>Day 09</h1>
+        <p>hei testiteksti</p>
+        <script>
+            /*
+            // Tehtävä 1
+
+            // tee luokka henkilö, jolla on propertyt:
+            // etunimi, sukunimi, ikä
+            // lisää funktio terveiset(), joka kirjoittaa
+            // Hei! Olen <etunimi> <sukunimi> ja ikäni on <ikä> vuotta.
+            // Luo luokkaa käyttäen oma perheesi
+            
+            class Henkilö {
+                constructor(nimi,sukunimi,ikä){
+                    this.nimi = nimi;
+                    this.sukunimi = sukunimi;
+                    this.ikä = ikä;
+                }
+                tervehdys() {
+                    console.log(`Hei! Olen ${this.nimi} ${this.sukunimi} ja ikäni on ${this.ikä} vuotta.`)
+                }
+
+            }
+            let Henkilö1 = new Henkilö("Abdalle","Wais", 31);
+            Henkilö1.tervehdys();
+
+            
+            
+            //Tehtävä
+
+            // Tee array jukola ja täytä se 7 veljeksellä.
+            // ilmoita monta elementtiä arrayssa on.
+            // lisää kahdeksas veli "Reijo".
+            // tulosta kaikki veljekset.
+            let jukola = ["Juhani","Tuomas","Aapo","Simeoni","Timo","Lauri","Eero"];
+            i = 0
+            for(i  of jukola){
+                console.log(i);
+            }
+            */
+           // TEHTÄVÄ
+            // Tee äitiluokka Talo jolla on ominaisuuksina
+            // leveys ja pituus
+            // ja funktio pintaala(), joka ilmoittaa pintaalan
+            // Tee lapsiluokka Huone, jolla on ominaisuuksina
+            // leveys, pituus ja tarkoitus
+            // tee funktio tiedot(), joka ilmoittaa huoneen tarkoituksen
+            // ja pinta-alan.  
+            class talo {
+                constructor(leveys,pituus){
+                    this.leveys = leveys;
+                    this.pituus = pituus;
+                }
+                pintaala() {
+                    console.log(`pintaala on ${this.leveys*this.pituus}`)
+                    return (leveys,pituus)
+                }
+
+            }
+            class Huone extends talo {
+                constructor(leveys,pituus,tarkoitus){
+                    super(leveys,pituus)
+                    this.tarkoitus = tarkoitus;
+                }
+                tiedot(){
+                    console.log(`Huoneen käyttö tarkoitus${tarkoitus}ja pintaala on ${pintaala()}.`)
+                }
+            }
+            let abed_talo = new talo(10,3);
+            let wc = new Huone(2,2,"WC");
+            let makuuhuone = new Huone(3,4,"Makuuhuone");
+            let ManCave = new Huone(3,4,"ManCave");
+            let olohuone = new Huone(4,4,"Olohuone");
+
+
+            /*
+        Kotitehtävät: TO ja PE
+        JavaScriptin kertaus on kaikki kaikessa. Tämä varmistetaan tekemällä oma tehtävä. Valitse yksi seuraavista:
+        1) Ei tehtävää vaan luen w3schoolsista materiaalin ja sitten käyn läpi opettajan opetusmateriaalia.
+        2) Rakennan oman number guessing gamen, jossa käyttäjä antaa lukuja välillä 1-100.
+        3) Rakennan oman blackjackin. Pohjana voi käyttää opettajan versiota.
+        4) tick-tac-toe peli...
+        5) Jokin oma idea, mikä?
+
+        Tulokset käydään läpi PERJANTAINA klo 0900 alkaen etänä, koska olen Oulussa. Lähetän silloin jitsilinkin etukäteen. 
+        */
+
+
+
+
+
+
+
+        </script>
+    </body>
+</html>

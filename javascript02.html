@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="fi-FI">
+    <head>
+        <meta charset="utf-8"/>
+    </head>
+    <body>
+        <h1>Day 02</h1>
+        <h2>Tässä harjoitellaan aritmetiika ja vertailuja
+        <script>
+/*            
+            // aritmetiikka
+            // + - * /
+            console.log(12 + 4); // 16
+            console.log(12 - 4); // 8
+            console.log(2 * 4); // 8
+            console.log(16 / 2); // 8
+            console.log( 15 / 4); // 3.75
+            // potenssi
+            console.log( 2 ** 3); // 8
+            // neliöjuuri
+            console.log( Math.sqrt(16) ); // 4
+
+            // jakojäännös eli modulo (remainder)
+            // 7 % 3 on 2 kokonaista ja 1/3
+            // jakojäännös on tällöin 1 
+            console.log( 7 % 3 ); // 1
+
+            // tyypillisesti laskuissa käytetään muuttujia
+            // esim luodaan muuttuja.
+            let numeroarvo01 = 100;
+
+            // lisää arvoa Xllä
+            // muuttuja += X
+            numeroarvo01 += 10; // arvo on 110
+            console.log(numeroarvo01); // 110
+            numeroarvo01 = numeroarvo01 + 10; // arvoksi tulee 120
+            console.log(numeroarvo01); // 120
+            // sama tekniikka toimii muissakin peruslaskuissa
+            // -=
+            // *=
+            // /=
+            numeroarvo01 -= 20;
+            console.log(numeroarvo01); // 100
+
+            // lisäys ja vähennys aritmetiikassa 
+            // muutos 1llä on yleisin toiminta
+            // käytetään ++ ja --
+            numeroarvo01++; // käytä arvoa ja sitten lisää yhdellä
+            ++numeroarvo01; // lisää yhdellä ja sitten käytä arvoa
+            console.log(numeroarvo01); // 102
+            numeroarvo01 -= 2; // arvossi tulee 100
+            console.log(numeroarvo01); // 100
+            console.log(numeroarvo01--); // 100
+            console.log(numeroarvo01); // 99
+            console.log(--numeroarvo01); // 98
+            console.log(numeroarvo01); // 98
+
+            // ÄLÄ IKINÄ LASKE string JA number MUUTTUJIA YHTEEN!
+            console.log(123 + "123"); // "123123"
+
+            // Muistatko ulkoa eri aritmetiikan ja 
+            // yleensä koodin toteutusjärjestyksen?
+            console.log( 3 + 4 * 10 ); // 43
+            console.log( 3 - 4 + 10 ); // 9
+
+            // Muistisääntö: sulut tulevat aina ensin!
+
+            // vertailu...
+            // vertailun lopputulos on aina true tai false
+            // < <= >= > ja ===
+            console.log ( 10 > 5);
+            console.log ( 10 <= 5);
+            // yhtäsuuruus vertailussa == ja === ovat eri asia!
+            // === vertaa myös tietotyyppiä, käytä tätä tapaa!
+            console.log ( 10 == "10"); // true
+            console.log ( 10 === "10"); // false
+
+            // merkkijonojen vertailu on oma lukunsa...
+            console.log( "z" > "Z" ); // true
+            console.log( "Z" > "z" ); // false
+            console.log( "z" == "z" ); // true
+            console.log( "z" === "z" ); // true
+            console.log( "2" > 1 ); // true
+
+            // eri suuruinen on puolestaan != ja !==
+            console.log("Kalle" !== "kalle"); // true
+            console.log("kalle" !== "kalle"); // false
+
+            // merkkijonojen vertailussa käytetään localeCompare
+            // -1 on pienempi
+            // 0 on yhtäsuuri
+            // +1 on suurempi            
+            console.log( "bertta".localeCompare("aarne")); // 1
+            console.log( "bertta".localeCompare("bertta")); // 0
+            console.log( "bertta".localeCompare("celsius")); // -1
+
+            // Tehtävä 1: Laske luvun 2 neliöjuuri
+            console.log ( Math.sqrt(2) );
+            console.log ( Math.SQRT2 );
+
+            // Tehtävä 2: Laske luvun 5 kuutio (potenssiin kolme)
+            console.log ( 5 ** 3 );
+            console.log ( Math.pow(5,3) );
+
+            // Tehtävä 3: Tee kaksi muuttujaa ja laske seuraavasti
+            // A + B/10 
+            // kerro summa 1.25llä
+            // onko arvo suurempi kuin 30?
+            // kokeile eri luvuilla kunnes saat sekä true että false
+            let lukuA = 25; // 25/10 ovat true ja false
+            let lukuB = 10; // 10/10 ovat true ja false
+
+            let dummy = lukuA + lukuB/10;
+            dummy *= 1.25;
+            console.log(dummy > 30);
+
+            // Tehtävä 4: onko "Kalle" suurempi kuin "kalle"?
+            // katso:
+            // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare
+            console.log("Kalle".localeCompare("kalle"));
+            console.log("Kalle".localeCompare("kalle") > 0);
+*/
+            // IF lause
+            // jos tarkoittaa, että valitaan true/falsen mukaan
+            // mitä tehdään.
+            //let muuttujaA = 40;
+            //let muuttujaB = 30;
+// seuraavat vertailut toimivat
+// vertaus perustuu true/false tyyppiseen vertailuun
+// historiallisesta syystä 0 on false ja muu numero on true
+// funktio, joka palauttaa void on false
+// funktio, joka palauttaa muun arvon kuin 0 on true
+// null ja undefined palauttaa falsen
+//            if (muuttujaA > muuttujaB){
+//            if (true) {
+//            if (0) {
+//            if (-123) {
+//            if (console.log("testi")) {
+//            if ("Kalle") {
+//            if (muuttujaA < muuttujaB) {
+//                console.log("väite on totta");
+//            } else {
+//                console.log("väite on valhetta");
+//           }
+/*
+            muuttujaA = 8;
+            muuttujaB = 10;
+            if (muuttujaA > muuttujaB) {
+                console.log("aarne");
+            } else if (muuttujaB < 15) {
+                console.log("pieni bertta");
+            } else {
+                console.log("iso bertta");
+            }
+
+            // if lauseen perässä voi olla rajoittamattomasti
+            // else if lauseita
+            // else on aina viimeinen
+/
+            // montako else if lausetta on hyvä olla?
+            // Jos else ifejä on enemmän kuin 3 on rakenne
+            // huvin monimutkainen niin vaikea ylläpitä
+
+            // suurin osa if lauseista on hyvin yksinkertaisia
+            // tavallisesti if ja else
+            // ternary operation on termi if-lauseen yksinkertaistamiselle
+            // (vertailu) ? <true> : <false>            
+            muuttujaA = 6;
+            muuttujaB = 9;
+            (muuttujaA > muuttujaB) ? console.log("AAA") : console.log("BBB");
+
+            // ternary operation voi palauttaa arvon
+            let resultA = (muuttujaA > muuttujaB) ? "AAA" : "BBB";
+            console.log(resultA);
+*/
+/*
+            // Tehtävä 1: rakenna if lause
+            // Ota kolme lukua aaa, bbb ja ccc.
+            // ilmoita niistä suurin.
+            muuttujaA = 3;
+            muuttujaB = 5;
+            let muuttujaC = 18;
+            
+            if (muuttujaA > muuttujaB) {
+                if (muuttujaA > muuttujaC) {
+                    console.log("A suurin");
+                } else {
+                    console.log("C suurin");
+                }
+            } else {
+                if (muuttujaB > muuttujaC) {
+                    console.log("B suurin");
+                } else {
+                    console.log("C suurin");
+                }
+            }
+
+            if (muuttujaA > muuttujaB) {
+                (muuttujaA > muuttujaC) 
+                    ? console.log("A suurin")
+                    : console.log("C suurin");
+            } else {
+                (muuttujaB > muuttujaC) 
+                    ? console.log("B suurin")
+                    : console.log("C suurin");
+            }
+
+            // A, B tai C myös ternary operationsseilla
+            resultA = muuttujaA > muuttujaB ? muuttujaA : muuttujaB;
+            resultA = muuttujaC > resultA ? muuttujaC : resultA;
+            console.log(resultA);
+
+            // Tehtävä 2: vertaa numeroita ja stringejä
+            // anna luku promptilla, kokeile syöttää myös tyhjä arvo
+            // vertaa lukua johonkin muuttujaan, jonka arvo on numero
+            // ilmoita suurempi numero 
+            // ja ilmoita tilanne, jossa vertailu ei onnistu
+            // koska annettu arvo on kelpaamaton "" tai null 
+           
+            // Tämä on karvalakkiversio, jos annetaan vain lukuja.
+            muuttujaA = 20;
+            muuttujaB = Number(prompt("Anna luku!"));
+            if (muuttujaB > muuttujaA) {
+                console.log("annettu luku suurempi");
+            } else {
+                console.log("valmis luku suurempi");
+            }
+
+            muuttujaB = +(prompt("Anna luku!"));
+
+
+/*
+            // Tämä ottaa huomioon että syötetty luku voi olla
+            // väärä.
+            muuttujaA = 20;
+            muuttujaB = prompt("Anna luku!");
+            if (muuttujaB === null) {
+                console.log("null murkkijono");
+            } else if (muuttujaB.localeCompare("") === 0) {
+                console.log("tyhjä merkkijono");
+            } else {
+                muuttujaB = Number(muuttujaB);
+                console.log(muuttujaB);
+                if (isNaN(muuttujaB)) {
+                    console.log("Merkkijono eikä luku");
+                } else {
+                    if (muuttujaB > muuttujaA) {
+                        console.log("annettu luku suurempi");
+                    } else {
+                        console.log("valmis luku suurempi");
+                    }
+                }
+            }
+
+            // logiikkaa eli AND, OR ja NOT
+            // AND  &&
+            // --> "tapauksessa kaikkien vertailujen on pidettävä"
+            // paikkaansa
+            // OR   ||
+            // --> tapauksessa ainakin yhden vertailun on pidettävä
+            // paikkaansa
+            // NOT  !
+            // näillä yhdistetään boolean tyylisiä vertailuja
+            // vertaus aloitetaan vasemmanpuoleisesta vertauksesta
+
+/*
+            muuttujaA = 4;
+            muuttujaB = 6;
+            muuttujaC = 8;            
+
+            // jos A>B ja C>A eli C>A>B
+            if (muuttujaA > muuttujaB && muuttujaC > muuttujaA) {
+                console.log("C on suurin");
+            }
+
+            // C>A ja C>B eli C on suurin
+            if (muuttujaC > muuttujaA && muuttujaC > muuttujaB) {
+                console.log("C on suurin");
+            }
+
+            // C>A tai C>B eli onko C suurin? EI!
+            if (muuttujaC > muuttujaA || muuttujaC > muuttujaB) {
+                console.log("C ei välttämättä ole suurin");
+            }
+
+            // Tehtävä 1: rakenna if lauseita ja
+            // ota kolme lukua aaa, bbb ja ccc.
+            // ilmoita niistä suurin.
+            if (muuttujaC > muuttujaA && muuttujaC > muuttujaB) {
+                console.log("C on suurin");
+            } else
+            if (muuttujaB > muuttujaA && muuttujaB > muuttujaC) {
+                console.log("B on suurin");
+            } else {
+                console.log("A on suurin");
+            }
+
+            // Tehtävä A:
+            // Kysy käyttäjältä vuosiluku.
+            // jos se on 2000, kirjoita "Millenium!"
+            let vuosiluku = Number(prompt("Anna vuosiluku?"));
+            if (vuosiluku === 2000) {
+                console.log("Millenium!");
+            }
+*/
+            // Tehtävä B:
+            // Kysy käyttäjältä lämpötila.
+            // muuta se fahrenheiteiksi.
+            // jos se on alle 20, kirjoita "Brrr. Kylmää"
+            let lämpötila = Number(prompt("Anna lämpötila?"));
+            lämpötila *= 9/5;
+            lämpötila += 32;
+            if (lämpötila < 20) {
+                console.log("Brrr. Kylmää!");
+            }else{
+                console.log("tosi kuuma!")
+            }
+            // Tehtävä C:
+            // kysy käyttäjältä luku ja muuta se itseisarvoksi.
+            // tulosta itseisarvo.
+            // Absolute number löytyy Math kirjastosta.
+            // voit myös tehdä sen if lauseilla.
+            //let luku = Number(prompt("Anna luku?"));
+            //resultA = (luku >= 0) ? luku : -luku;
+            //console.log(resultA);
+            //console.log(Math.abs(luku));
+
+
+
+        </script>
+    </body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fi-FI">
+    <head>
+        <title>TITLE</title>
+        <meta charset="utf-8"/>
+        <style>
+        </style>
+    </head>
+    <body>
+        <h1>Tietokilpailu</h1>
+        <h3 id="otsikko"></h3>
+        <p id="kysymysteksti"></p>
+        <button id="nappulaA"></button>
+        <br>
+        <button id="nappulaB"></button>
+        <br>
+        <p id="tietokenttä"></p>
+        <p id="lisätietokenttä"></p>
+
+        <script>
+
+        // Kirjastot ja Modulit
+        // Vakiot
+
+        const KYSYMYSLISTA = [
+            {
+                kysymys: "Mikä on Suomen pääkaupunki?",
+                A: "Helsinki",
+                B: "Naantali",
+                oikein: "A"
+            },
+            {
+                kysymys: "Mikä on Suomen entinen pääkaupunki?",
+                A: "Raasepori",
+                B: "Turku",
+                oikein: "B"
+            },
+            {
+                kysymys: "Mikä on Ruotsin pääkaupunki?",
+                A: "Göteborg",
+                B: "Tukholma",
+                oikein: "B"
+            },
+            {
+                kysymys: "Mikä on Norjan pääkaupunki?",
+                A: "Oslo",
+                B: "Stavanger",
+                oikein: "A"
+            },
+            {
+                kysymys: "Mikä on Tanskan pääkaupunki?",
+                A: "Kattegat",
+                B: "Kööpenhamina",
+                oikein: "B"
+            },
+            {
+                kysymys: "Extra: Mikä on Ranskan pääkaupunki?",
+                A: "Lille",
+                B: "Pariisi",
+                oikein: "B",
+                bonus: 2
+            }
+
+        ];
+
+        // Muuttujat
+        let counter = 0;
+        let oikeinvastaus = 0;
+
+        // Konteksti näytön ja koodin välillä
+        const otsikko = document.getElementById("otsikko");
+        const kysymysteksti = document.getElementById("kysymysteksti");
+        const nappulaA = document.getElementById("nappulaA");
+        const nappulaB = document.getElementById("nappulaB");
+        const tietokenttä = document.getElementById("tietokenttä");
+        const lisätietokenttä = document.getElementById("lisätietokenttä");
+
+        // Luokat ja Oliot
+        // Funktiot
+        function näytäotsikko(counter) {
+            otsikko.innerText = `${counter+1}. KYSYMYS`;
+            kysymysteksti.innerText = KYSYMYSLISTA[counter].kysymys;
+            nappulaA.innerText = KYSYMYSLISTA[counter].A;
+            nappulaB.innerText = KYSYMYSLISTA[counter].B;
+            tietokenttä.innerText = `Sinulla on tähän mennessä ${oikeinvastaus}/${KYSYMYSLISTA.length} oikeaa vastausta!`;
+        }
+
+        function meniköoikein(nappulanarvo) {
+            console.log(nappulanarvo);
+            // jos painettu nappula on sama kuin oikein...
+            if (KYSYMYSLISTA[counter].oikein === nappulanarvo) {
+                    if ("bonus" in KYSYMYSLISTA[counter]) {
+                        oikeinvastaus += 2;
+                    } else {
+                        oikeinvastaus++;                        
+                    }
+                    näytäotsikko(counter);
+            }
+            if (counter < KYSYMYSLISTA.length-1) {
+                counter++;
+                näytäotsikko(counter);
+            } else {
+                nappulaA.disabled = true;
+                nappulaB.disabled = true;
+                switch(true) {
+                    case oikeinvastaus >= 5:
+                        lisätietokenttä.innerText = `Jippii! Erinomaista`;
+                    break;
+                    case oikeinvastaus === 4:
+                        lisätietokenttä.innerText = `Hyvä hyvä!`;
+                    break;
+                    case oikeinvastaus >= 2 && oikeinvastaus <= 3:
+                        lisätietokenttä.innerText = `Aika tyypillistä.`;
+                    break;
+                    case oikeinvastaus === 1:
+                        lisätietokenttä.innerText = `Alakanttiin...`;
+                    break;
+                    case oikeinvastaus === 0:
+                        lisätietokenttä.innerText = `Miten meni niin kuin omasta mielestä?`;
+                    break;
+                }
+            }
+        }
+
+        // Event handlerien asetukset
+        nappulaA.addEventListener("click", () => meniköoikein("A"));
+        nappulaB.addEventListener("click", () => meniköoikein("B"));
+
+        // Datan haku
+        // (koodi)
+        näytäotsikko(counter);
+
+        // Tehtävä:
+        // 1) Lisää kysymyksien lukumäärää 5 kappaleeseen
+        // 2) ilmoita lisätietokentässä kuinka hyvin meni
+        // 5 "Jippii! Erinomaista"
+        // 4 Hyvä hyvä!
+        // 2-3 Aika tyypillistä.
+        // 1 Alakanttiin...
+        // 0 Miten meni niin kuin omasta mielestä?
+        // 3) Lisää kuudes, vaikea, kysymys, josta saa kaksi pistettä.
+
+        </script>
+    </body>
+</html>
+

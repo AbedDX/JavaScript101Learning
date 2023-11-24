@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="fi-FI">
+    <head>
+        <title>TITLE</title>
+        <meta charset="utf-8"/>
+        <style>
+        </style>
+    </head>
+    <body>
+        <h1>Day 12</h1>
+        <h3></h3>
+        <p></p>
+        <div></div>
+        <ul id="ullista" class="lista">
+            <li>aaa</li>
+            <li class="viimeinen">bbb</li>
+        </ul>
+
+        <button id="pressbutton">press me!</button>
+        <script>
+        /* Asia 33: Dokumentit */
+/*
+        // Kun javascriptiä ajetaan verkkoselaimella...
+        // muodostetaan window objekti
+
+        // DOM muodostaa document objektin ja näytön elementtien hierarkian
+        // https://www.w3schools.com/js/js_htmldom.asp
+
+        // BOM muodostaa browserin oliot
+        // https://www.w3schools.com/js/js_window.asp
+
+        // BOM mallin säätöä
+        // https://developer.mozilla.org/en-US/docs/Web/API/Window
+
+        console.log(window.innerHeight);
+        window.aarne = 111;
+        console.log(window.aarne);
+
+        // window.location.href = "https:\\www.kaleva.fi";
+        // location.href = "https:\\www.kaleva.fi";
+
+        // DOM mallin säätöä
+        // https://www.w3schools.com/js/js_htmldom.asp
+
+//        window.document.body.style.background = 'blue';
+//        document.body.style.background = 'blue'; // tämä on enemmän käytetty tapa
+
+
+        // tärkeimmät DOM osat ovat:
+        // <html> = document.documentElement
+        // <body> = document.body
+        // <head> = document.head
+        // jos teet jotain document.head osassa, document.body voi olla null
+        
+
+        // childNodes kuvaa lapsia
+        for (let i = 0; i < document.body.childNodes.length; i++) {
+            console.log( document.body.childNodes[i] );
+        }
+
+        for (let elementti of document.body.childNodes) {
+            console.log( elementti );
+        }
+
+        console.log(document.body.firstChild);
+        console.log(document.body.childNodes[1]);
+
+        console.log(document.body.lastChild);
+
+
+        // sibling kuvaa edellisiä ja seuraavia solmuja
+        console.log(document.body.previousSibling); // head
+        console.log(document.head.nextSibling); // body
+
+        console.log(document.getElementById("ullista").nextSibling);
+
+
+        // parent on äitielementti
+        // https://stackoverflow.com/questions/8685739/difference-between-dom-parentnode-and-parentelement
+        console.log(document.body.parentElement);
+        console.log(document.body.parentNode); // document
+
+
+        
+        // elementin etsiminen
+
+        // id on helpoin tapa etsiä...
+        // id on uniikki koko järjestelmässä eli nimeäminen tärkeää
+        // periaatteessa id on globaali muuttuja
+        const ullista = document.getElementById('ullista');
+        ullista.style.background = 'green';
+
+        // querySelector on useinmiten käytetty
+        // käyttää CSS tapaa etsiä elementit
+        // querySelector ottaa ENSIMMÄISEN löytyneen elementin
+        let elementtiA = document.querySelector('ul > li');
+        console.log(elementtiA.innerHTML);
+
+        // querySelectorAll hakee kaikki hakuun sopivat elementit
+        let elementtilistaA = document.querySelectorAll('ul > li');
+//        let elementtilistaA = document.querySelectorAll('ul > li:last-child');
+        for (let elementti of elementtilistaA) {
+            console.log(elementti.innerHTML);
+        }
+
+        
+        // matches
+        // etsii sopivaa yhteyttä
+        // https://developer.mozilla.org/en-US/docs/Web/API/Element/matches
+
+        let elementtilistaB = document.querySelectorAll('ul > li');
+        for (let elementti of elementtilistaB) {
+            if (elementti.matches(".viimeinen")) {
+                console.log(elementti.innerHTML);
+            }
+        }
+
+        // closest etsii sopivaa äitielementtiä
+        console.log(ullista.closest(".lista"));
+
+
+        // periaatteessa voi käyttää myös: getElementsBy...
+        // esim: getElementsByClassName
+        // tällainen lista "elää" eli se päivitetään aina näytön muuttuessa...
+
+        // innerHTML on html sisältö
+        // textContent on tekstiä oleva sisältö
+
+        // DOM propertyjä voi asettaa
+
+        document.body.myData = {
+            etunimi: 'Aku',
+            sukunimi: 'Ankka'
+        };
+        document.body.kokoNimi = function() { 
+            console.log(document.body.myData.etunimi + " " + document.body.myData.sukunimi);
+            console.log(this.myData.etunimi + " " + this.myData.sukunimi);
+        };
+        document.body.kokoNimi(); // Aku Ankka ja Aku Ankka
+        console.log(document.body.myData.title); // undefined, koska ei olemassa
+
+        // elementeille voi rakentaa attribuutteja
+        ullista.setAttribute("tilanne","good");
+        console.log(ullista.getAttribute("tilanne"));
+        console.log(ullista);
+
+        
+
+        // luodaan dynaamisesti sivu
+        // 1. Luo elementti
+        let div = document.createElement('div');
+
+        // 2. Luo elementille luokka
+        div.className = "dynaaminen";
+        div.id = "dynaaminenid";
+
+        // 3. Luo sisältö
+        div.innerHTML = "<strong>HEIPPA!</strong> Lisää tekstiä";
+
+        // sijoita dynaaminen sivu
+        // järjestys:
+        //  before
+        //  prepend
+        //  append
+        //  after
+        // replaceWith korvaa olemassaolevan
+        // HUom! monessa tapauksessa viimeinen sijoitus ratkaisee
+        // let ullista = document.getElementById('ullista');
+//        ullista.before(div); // ennen ul listaa
+//        ullista.prepend(div); // ul listan ensimmäiseksi elementiksi
+//        ullista.append(div); // ul listan viimeiseksi elementiksi
+        ullista.after(div); // ul listan jälkeen
+
+        // samantoiminnallisuuden saa myös insertAdjacentHTML metodilla
+
+        // elementti poistetaan remove komennolla
+        div.remove();
+
+        // TEHTÄVÄ
+        // Luo oma button dynaamisesti
+        let tehtäväbutton = document.createElement('button');
+        tehtäväbutton.id = "tehtavabutton";
+        tehtäväbutton.innerText = "tehtäväbutton";
+        document.body.prepend(tehtäväbutton);
+
+        // Asia 34: Eventit eli keskeytykset
+        // https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events
+
+        let myEventHandlerA = {
+            handleEvent(event) {
+                console.log(event.type + " " + event.currentTarget);
+            }
+        };
+
+        function myEventHandlerB(event) {
+            console.log("testi");
+            event.currentTarget.style.background = "white";
+        };
+
+
+        //const pressbutton = document.getElementById("pressbutton");
+        const pressbutton = document.querySelector("#pressbutton");
+        // const pressbutton = document.querySelector("#tehtavabutton");
+
+        pressbutton.addEventListener("click",myEventHandlerA);
+        pressbutton.addEventListener("click",myEventHandlerB);
+        pressbutton.addEventListener("click",()=>{ console.log("C"); });
+        // eventlistenerin voi myös poistaa
+        // tämä onnistuu vain nimetyille funktioille!
+        pressbutton.removeEventListener("click", myEventHandlerB);
+
+        // tehtään oma event ja handler
+        function mydblclickhandler(event) {
+            console.log("Double click!");
+        }
+        pressbutton.addEventListener("dblclick",mydblclickhandler);
+
+        // TEHTÄVÄ
+        // lisää eventlistener Tehtäväbuttonille, 
+        // joka kirjoittaa jotain konsolille
+        function tehtäväeventhandler() {
+            console.log("Tehtäväbutton was pressed");
+        }
+        tehtäväbutton.addEventListener("click",tehtäväeventhandler);
+
+        // Jatko tehtävään, kun edellinen toimii, niin poista eventlistener
+        tehtäväbutton.removeEventListener("click",tehtäväeventhandler);
+*/
+
+        /* Asia 35: Tiedon talletus */
+
+        // https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Client-side_storage
+
+        // cookies!
+        // https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies
+
+
+        // localStorage ja sessionStorage
+        
+//        localStorage.test = 2;
+//        localStorage.setItem("test",2);
+
+//        console.log( localStorage.test ); // 2
+//        console.log( localStorage["test"] ); // 2
+//        console.log( localStorage.getItem("test") ); // 2
+
+//        delete localStorage.test;
+        // https://superuser.com/questions/507536/where-does-google-chrome-save-localstorage-from-extensions
+
+//        sessionStorage.setItem('test', 1);
+//        console.log(sessionStorage.getItem('test') ); // 1
+
+        // indexedDB
+        // https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Client-side_storage
+
+        </script>
+    </body>
+</html>
+

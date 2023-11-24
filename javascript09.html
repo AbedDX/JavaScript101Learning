@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="fi-FI">
+    <head>
+        <title>TITLE</title>
+        <meta charset="utf-8"/>
+        <style>
+        </style>
+    </head>
+    <body>
+        <h1>Day 09</h1>
+        <script>
+            // luokka ja olio
+            // luokka on malli, jonka mukaan tehdään olioita
+            // olio on luokalla rakennettu yksittäinen asia
+
+            // luokka kuvataan termillä class <luokannimi> {}
+
+            // Luokan sisällä on about aina konstruktori, jolla
+            // määritetään propertyt (avain-arvo pareja) eli
+            // ominaisuudet.
+            // konstruktori tehdään constructor() {}
+
+            // get/set funktiot mahdollistavat monimutkaisten
+            // termien käytön, kuten olioillakin
+
+            // property eli avain-arvo pari eli ominaisuus voidaan
+            // määrittää salaiseksi. Tällöin se piilotetaan muuttamalla
+            // sen näkyvyysalue private tyyppiseksi.
+            // JavaScriptissä on kaksi näkyvyysaluetta:
+            // public näkyy kaikille ja private ei näy ulkopuolelle
+            // private propertyjä voidaan muuttaa vain olion sisällä
+            // private merkitään #
+            // propertyn kanssa käytetään this.#<avain> tyyliä 
+
+            class MyCat {
+                // tämä on private näkyvyysaluetta käyttävä property
+                // se ei näy avain-arvo parina
+                #väri = "";
+                // tähän tulee luokan constructor
+                // sen argumenteillä voidaan rakentaa olion arvot
+                constructor(nimi,väritys) {
+                    this.nimi = nimi;
+                    this.ikä = 123;
+                    // get/set propertyn nimi ei saa olla sama
+                    // kuin get/set nimike.
+                    // siis väri ja väritys
+                    // Väri on private näkyvyysaluetta
+                    this.#väri = väritys;
+                }
+                // get ja set toimivat seuraavasti...
+                // Tyypillisesti get ja set ovat kumpikin tehtävä
+                // tavallisesti get/set muuttaa avain-arvo pareja,
+                // jotka ovat privaatteja tai yhdistelmiä propertyistä.
+                get väritys() {
+                    return this.#väri;
+                }
+                set väritys(arg) {
+                    this.#väri = arg;
+                }
+
+                // funktiot toimivat seuraavasti
+                mouruaa() { 
+                    console.log(`${this.nimi} mouruaa!`); 
+                }
+
+            }
+
+            // luokkaa kutsutaan kuten olion rakentamista funktiolla
+            let kali = new MyCat("Kali");
+            console.log(kali);
+            kali.mouruaa();
+            kali.väritys = "vihreä";
+
+            // Tehtävä
+            // tee luokka henkilö, jolla on propertyt:
+            // etunimi, sukunimi, ikä
+            // lisää funktio terveiset(), joka kirjoittaa
+            // Hei! Olen <etunimi> <sukunimi> ja ikäni on <ikä> vuotta.
+            // Luo luokkaa käyttäen oma perheesi
+            class Henkilö {
+                constructor(etunimi,sukunimi,ikä) {
+                    this.etunimi = etunimi;
+                    this.sukunimi = sukunimi;
+                    this.ikä = ikä;
+                }
+                terveiset() {
+                    console.log(`Hei! Olen ${this.etunimi} ${this.sukunimi} ja ikäni on ${this.ikä} vuotta.`);
+                }
+            }
+            let janne = new Henkilö("Janne","Kemppi",123);
+            let terhi = new Henkilö("Terhi","Kemppi",123);
+            janne.terveiset();
+            terhi.terveiset();
+
+            // Tehtävä 2
+            // Muuta kortti funktio käyttämään luokkaa
+            // ja luo korttipakka.
+            // Käytä opettajan luomia funktioita edellisestä päivästä
+            // tai muuta omasi.
+            class Kortti {
+                constructor(arvo,maa) {
+                    this.arvo = arvo;
+                    this.maa = maa;
+                }
+
+                korttitieto() {
+                    let dummymaa = "";
+                    switch(this.maa) {
+                        case 0:
+                            dummymaa = "risti";
+                        break;
+                        case 1:
+                            dummymaa = "ruutu";
+                        break;
+                        case 2:
+                            dummymaa = "pata";
+                        break;
+                        case 3:
+                            dummymaa = "hertta";
+                        break;
+                    }
+                    let dummyarvo = String(this.arvo);
+                    if (dummyarvo === "1") { dummyarvo="A"; }
+                    if (dummyarvo === "11") { dummyarvo="J"; }
+                    if (dummyarvo === "12") { dummyarvo="Q"; }
+                    if (dummyarvo === "13") { dummyarvo="K"; }
+                    return `${dummymaa} ${dummyarvo}`;
+                }
+            }
+
+            let korttipakka = [];
+
+            for (let maa=0; maa < 4; maa++) {
+                for (let arvo=1; arvo < 14; arvo++) {
+                    let kortti = new Kortti(arvo,maa);
+                    korttipakka.push(kortti);
+                }
+            }
+
+            console.log(korttipakka);
+            console.log(korttipakka[16]);
+            console.log(korttipakka[16].korttitieto());
+
+            // Array
+            // array on järjestetty lista
+            let arrayA = ["Tupu", "Hupu", "Lupu"];
+            let arrayB = new Array("Tupu","Hupu","Lupu"); 
+            console.log(arrayA);
+            // arrayn indeksi osoittaa mones elementti on kyseessä
+            // <arraynimi>[<indeksi>] ja tässä indeksi alkaa 0sta.
+            console.log(arrayA[0]); // Tupu
+            console.log(arrayA[2]); // Lupu
+
+            // funktio .at() on myös olemassa
+            // se hyväksyy negatiisia arvoja, jotka aloittavat
+            // laskun viimeisestä merkistä niin, että -1 on 
+            // ensimmäinen (siis viimeinen merkki)
+            console.log(arrayA.at(0)); // Tupu
+            console.log(arrayA[arrayA.length-1]); // vipa elementti
+            console.log(arrayA.at(-1)); // Lupu
+            console.log(arrayA[-1]); // undefined
+
+            // arrayn etu on siinä, että sillä voidaan luoda:
+            // FIFO eli jono, luodaan push ja shift komennoilla
+            // FILO eli pino, luodaan push ja pop komennoilla
+            // jonossa lisätään jotain loppuun ja poistetaan edestä
+            // pinossa lisätään loppuun ja poistetaan lopusta
+
+            // shift, unshift, push ja pop
+            // push lisää loppuun
+            arrayA.push("Aatami"); // tupu, hupu, lupu, aatami
+            console.log(arrayA);
+            // pop poistaa lopusta
+            arrayA.pop(); // tupu, hupu, lupu
+            console.log(arrayA);
+
+            // unshift lisää alkuun
+            arrayA.unshift("Aatami"); // aatami, tupu, hupu, lupu
+            console.log(arrayA);
+            // shift poistaa alusta
+            arrayA.shift(); // tupu, hupu, lupu
+            console.log(arrayA);
+
+            // Yleisin arrayn apufunktioista on length.
+            // se on käytännössä avain-arvopari, joka kertoo
+            // monta elementtiä arrayssa on.
+            console.log(arrayA.length); // 3
+
+            // array voidaan käydä läpi monella eri tavalla
+            for (let indeksi=0; indeksi < arrayA.length; indeksi++) {
+                console.log(arrayA[indeksi]);
+            }
+
+            // for - of mahdollistaa koko arrayn läpikäynnin
+            for (let elementti of arrayA) {
+                console.log(elementti);                
+            }
+            
+            for( let index in arrayA) {
+                console.log(index);
+                console.log(arrayA[index]); // elementti
+            }
+
+            //Tehtävä
+
+            // Tee array jukola ja täytä se 7 veljeksellä.
+            // ilmoita monta elementtiä arrayssa on.
+            // lisää kahdeksas veli "Reijo".
+            // tulosta kaikki veljekset.
+
+            let jukola = ["Juhani","Tuomas","Aapo","Simeoni","Timo","Lauri","Eero"];
+            console.log(jukola);
+            console.log(jukola.length); // 7
+            jukola.push("Reijo");
+            for(let elementti of jukola) {
+                console.log(elementti);
+            }
+
+            // bonus:
+            // ilmoita monta korttia on korttipakassa
+            // tulosta kaikki korttipakan kortit.
+            // käytä korttitieto funktiota.
+
+            console.log(korttipakka.length); // 52
+            for (let elementti of korttipakka) {
+                console.log(elementti.korttitieto());
+            }
+            for (let indeksi=0; indeksi < korttipakka.length; indeksi++) {
+                console.log(korttipakka[indeksi].korttitieto());
+            }
+
+            // arraysta poistaminen tapahtuu .splice() komennolla¨
+
+            // poistetaan jukolasta viimeinen elementti
+            // tehdään yleensä .pop() komennolla
+            // sama voidaan .splice(X,Y) komennolla
+            // X indeksi, Y kappaletta
+            let kohta = 0;
+            for (let indeksi=0; indeksi < jukola.length; indeksi++) {
+                if (jukola[indeksi] === "Reijo") {
+                    kohta = indeksi;
+                    break;
+                }
+            }
+            jukola.splice(kohta,1);
+            console.log(jukola);
+
+            myArrayA = [11,22,33,44,55,66,77,88,99,111,222,333,444,555,666,777,888,999];
+            console.log(myArrayA);
+
+            // splice poistaa X indeksistä Y ylementtiä
+            // ja korvaa ne uusilla elementeillä
+            // poistettavien ja korvaavien elementtien lukumäärän ei tarvitse olla sama!
+            myArrayA.splice(0,4, 911,811,711,611,511,411); 
+            console.log(myArrayA);
+
+            // .splice() käskyllä on paluuarvo, eli se luo uuden arrayn paluuarvona
+            // poistettavat elementit ovat uusi array
+            myArrayD = myArrayA.splice(0,10);
+            console.log(myArrayD);
+
+            // slice kopioi X elementistä Y elementtiin asti (Y ei mukana)
+            console.log(myArrayD.slice(1,4));
+
+            // concat luo uuden arrayn muista arraysta
+            // myArrayB.concat(myArrayC);
+            console.log(myArrayA.concat(jukola));
+
+            // Tehtävä
+            // Poista valitsemasi 3 veljestä
+            let uusijukola = jukola.splice(3,3);
+            console.log(jukola);
+            console.log(uusijukola);
+
+            // forEach rakenteella voi hakea myös indeksitiedot
+            // <array>.forEach()
+            // termit ovat vapaavalinnaiset mutta tyypillisesti
+            // käytetään item, index, array termejä
+            // tässä on käytetty nuolifunktiota
+            // item on elementti
+            // index on elementin indeksi
+            // array on array, jota käydään läpi
+            uusijukola.forEach((item, index, array) => {
+                //console.log(index + " " + item + " " + array);
+                console.log(index + " " + item);
+            });
+
+            // Tehtävä
+            // kutsu jokaiselle korttipakan kortille 
+            // .korttitieto() funktiota
+            korttipakka.forEach((item, index, array) => {
+                console.log(item.korttitieto());
+            });
+
+            korttipakka.forEach((item) => console.log(item.korttitieto()) );
+          
+            // sort ja reverse
+            // VAROITUS! sort ja reverse eivät toimi stringeillä!
+            // ne toimivat "hyvin" numeroilla
+            // vältä näiden käyttöä!
+            let myArrayNum = [78,4,7,2,9,4,1,1,1];
+            console.log(myArrayNum);
+            myArrayNum.sort();
+            console.log(myArrayNum);
+            myArrayNum.reverse();
+            console.log(myArrayNum);
+
+            // Tehtävä 
+            // Tee ventti
+
+            let kortti=0;
+
+            function haekorttipakasta() {
+                return Math.floor(Math.random() * korttipakka.length);
+            }
+
+            function laskekädenarvo(käsi) {
+                let arvo = 0;
+                for (let elementti of käsi) {
+                    arvo += elementti.arvo;
+                }
+                return arvo;
+            }
+
+            // Tee pelaajan käsi;
+            let pelaajankäsi = [];
+            kortti = haekorttipakasta();
+            pelaajankäsi.push(korttipakka.at(kortti));
+            korttipakka.splice(kortti,1);
+            kortti = haekorttipakasta();
+            pelaajankäsi.push(korttipakka.at(kortti));
+            korttipakka.splice(kortti,1);
+
+            let pankinkäsi = [];
+            kortti = haekorttipakasta();
+            pankinkäsi.push(korttipakka.at(kortti));
+            korttipakka.splice(kortti,1);
+            kortti = haekorttipakasta();
+            pankinkäsi.push(korttipakka.at(kortti));
+            korttipakka.splice(kortti,1);
+
+            console.log(pelaajankäsi);
+            console.log(laskekädenarvo(pelaajankäsi));
+            console.log(pankinkäsi);
+            console.log(laskekädenarvo(pankinkäsi));
+
+            let nostatko = true;
+            let pelaajametsään = false;
+            let pankkimetsään = false;
+            do {
+                let päätös = confirm("Nostatko kortin?");
+                if (päätös) {
+                    kortti = haekorttipakasta();
+                    pelaajankäsi.push(korttipakka.at(kortti));
+                    korttipakka.splice(kortti,1);
+                    console.log("pelaaja");
+                    console.log(laskekädenarvo(pelaajankäsi));
+                    if (laskekädenarvo(pelaajankäsi) > 21) {
+                        console.log("metsään meni!");
+                        pelaajametsään = true;
+                        break;
+                    }
+                } else {
+                    nostatko = false;
+                }
+            } while (nostatko); 
+
+            nostatko = false;
+            do {
+                if (laskekädenarvo(pankinkäsi) <= 16) {
+                    kortti = haekorttipakasta();
+                    pankinkäsi.push(korttipakka.at(kortti));
+                    korttipakka.splice(kortti,1);
+                    console.log("pankki");
+                    console.log(laskekädenarvo(pankinkäsi));
+                    if (laskekädenarvo(pankinkäsi) > 21) {
+                        console.log("metsään meni pankilta!");
+                        pankkimetsään = true;
+                        break;
+                    }
+                } else {
+                    nostatko = false;
+                }
+            } while (nostatko);
+
+            if (!pelaajametsään && (laskekädenarvo(pelaajankäsi) > laskekädenarvo(pankinkäsi))) {
+                console.log("pelaaja voitti");
+            } else {
+                console.log("pankki voitti");                
+            }
+
+        </script>
+    </body>
+</html>
+
+
+
+
